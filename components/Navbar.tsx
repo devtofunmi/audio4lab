@@ -30,9 +30,11 @@ const Navbar = () => {
             <button className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
               Login
             </button>
-            <button className="bg-white hover:bg-gray-200 cursor-pointer text-black px-4 py-2 rounded-full text-sm font-medium transition-colors">
-              Sign Up
-            </button>
+            <Link href="/onboarding">
+              <button className="bg-white hover:bg-gray-200 cursor-pointer text-black px-4 py-2 rounded-full text-sm font-medium transition-colors">
+                Sign Up
+              </button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -61,9 +63,11 @@ const Navbar = () => {
                 <button className="block w-full text-left text-gray-300 hover:text-white px-3 py-2 rounded-full text-base font-medium transition-colors">
                   Login
                 </button>
-                <button className="block w-full cursor-pointer bg-white hover:bg-gray-200 text-black px-3 py-2 rounded-full text-base font-medium transition-colors">
-                  Sign Up
-                </button>
+                <Link href="/onboarding">
+                  <button className="block w-full cursor-pointer bg-white hover:bg-gray-200 text-black px-3 py-2 rounded-full text-base font-medium transition-colors">
+                    Sign Up
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

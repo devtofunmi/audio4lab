@@ -608,8 +608,8 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-gray-300">
-                  &quot;The quality is incredible. It&apos;s like having a professional
-                  composer on demand for every project.&quot;
+                  &quot;The quality is incredible. It&apos;s like having a
+                  professional composer on demand for every project.&quot;
                 </p>
               </div>
 
@@ -635,8 +635,8 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-gray-300">
-                  &quot;Perfect for podcast intros and outros. The mood selection
-                  really captures the vibe I&apos;m going for.&quot;
+                  &quot;Perfect for podcast intros and outros. The mood
+                  selection really captures the vibe I&apos;m going for.&quot;
                 </p>
               </div>
 
@@ -662,8 +662,8 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-gray-300">
-                  &quot;Game-changer for my social media content. The text-to-speech
-                  feature saves me hours of recording.&quot;
+                  &quot;Game-changer for my social media content. The
+                  text-to-speech feature saves me hours of recording.&quot;
                 </p>
               </div>
             </div>
