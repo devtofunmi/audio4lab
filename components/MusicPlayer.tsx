@@ -1,11 +1,26 @@
-'use client';
+"use client";
 
-import { usePlayer } from '@/contexts/PlayerContext';
-import { useState } from 'react';
+import { usePlayer } from "../contexts/PlayerContext";
+import { useState } from "react";
+import {
+  Play,
+  Pause,
+  Previous,
+  Next,
+  VolumeHigh,
+  VolumeLow,
+  VolumeSlash,
+  Heart,
+  More,
+  CloseCircle,
+} from "iconsax-react";
+import Image from "next/image";
 
 const MusicPlayer = () => {
-  const { playerState, togglePlay, setVolume, setCurrentTime } = usePlayer();
+  const { playerState, togglePlay, setVolume, setCurrentTime, closePlayer } =
+    usePlayer();
   const [isVolumeExpanded, setIsVolumeExpanded] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   if (!playerState.currentTrack) {
     return null;
@@ -14,12 +29,7 @@ const MusicPlayer = () => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTime = parseFloat(e.target.value);
-    setCurrentTime(newTime);
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,89 +37,144 @@ const MusicPlayer = () => {
     setVolume(newVolume);
   };
 
+  // Mock waveform visualization
+  const WaveformVisualization = () => {
+    const bars = Array.from({ length: 60 }, (_, i) => {
+      const height = Math.random() * 40 + 10;
+      const isActive =
+        i < (playerState.currentTime / (playerState.duration || 100)) * 60;
+      return (
+        <div
+          key={i}
+          className={`w-1 rounded-full transition-all duration-150 ${
+            isActive ? "bg-white" : "bg-gray-600"
+          }`}
+          style={{ height: `${height}px` }}
+        />
+      );
+    });
+
+    return (
+      <div className="flex items-center justify-center space-x-1 h-12 flex-1 max-w-md">
+        {bars}
+      </div>
+    );
+  };
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-800 z-50">
-      <div className="max-w-7xl mx-auto px-4 py-3">
+    <div className="fixed bottom-0 left-0 right-0 bg-[#1a1a1a] border-t border-gray-700 z-50 backdrop-blur-md">
+      <div className="px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Track Info */}
-          <div className="flex items-center space-x-4 flex-1 min-w-0">
-            <div className="w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-xl text-white">🎵</span>
-            </div>
-            <div className="min-w-0 flex-1">
-              <h4 className="text-white font-medium truncate">
-                {playerState.currentTrack.title}
-              </h4>
-              <p className="text-gray-400 text-sm truncate">
-                {playerState.currentTrack.genre} • {playerState.currentTrack.mood}
-              </p>
-            </div>
-          </div>
-
-          {/* Playback Controls */}
-          <div className="flex items-center space-x-4 flex-shrink-0">
-            <button
-              onClick={togglePlay}
-              className="w-12 h-12 bg-white hover:bg-gray-200 text-black rounded-full flex items-center justify-center transition-colors"
-            >
-              {playerState.isPlaying ? (
-                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-                </svg>
-              ) : (
-                <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-              )}
-            </button>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="flex items-center space-x-3 flex-1 max-w-md mx-8">
-            <span className="text-gray-400 text-sm w-12 text-right">
-              {formatTime(playerState.currentTime)}
-            </span>
-            <div className="flex-1">
-              <input
-                type="range"
-                min="0"
-                max={playerState.duration || 100}
-                value={playerState.currentTime}
-                onChange={handleProgressChange}
-                className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer slider"
-                style={{
-                  background: `linear-gradient(to right, #ffffff 0%, #ffffff ${(playerState.currentTime / (playerState.duration || 100)) * 100}%, #374151 ${(playerState.currentTime / (playerState.duration || 100)) * 100}%, #374151 100%)`
-                }}
+          {/* Left: Track Info */}
+          <div className="flex items-center space-x-4 flex-1 min-w-0 max-w-xs">
+            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+              <Image
+                src="/billie.jpg"
+                alt={playerState.currentTrack.title}
+                width={56}
+                height={56}
+                className="w-full h-full object-cover"
               />
             </div>
-            <span className="text-gray-400 text-sm w-12">
-              {formatTime(playerState.duration)}
-            </span>
+            <div className="min-w-0 flex-1">
+              <h4 className="text-white font-medium truncate text-sm">
+                {playerState.currentTrack.title}
+              </h4>
+              <p className="text-gray-400 text-xs truncate">ANBR</p>
+            </div>
+            <button
+              onClick={() => setIsLiked(!isLiked)}
+              className="text-gray-400 hover:text-white transition-colors p-1"
+            >
+              <Heart
+                size="18"
+                color={isLiked ? "#ef4444" : "currentColor"}
+                variant={isLiked ? "Bold" : "Outline"}
+              />
+            </button>
           </div>
 
-          {/* Volume Control */}
-          <div className="flex items-center space-x-2 flex-shrink-0">
-            <button
-              onClick={() => setIsVolumeExpanded(!isVolumeExpanded)}
-              className="text-gray-400 hover:text-white p-2 transition-colors"
-            >
-              {playerState.volume === 0 ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clipRule="evenodd" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-                </svg>
-              ) : playerState.volume < 0.5 ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                </svg>
-              ) : (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                </svg>
-              )}
+          {/* Center: Controls and Waveform */}
+          <div className="flex flex-col items-center space-y-2 flex-1 max-w-2xl">
+            {/* Controls */}
+            <div className="flex items-center space-x-6">
+              <button className="text-gray-400 hover:text-white transition-colors">
+                <Previous size="20" />
+              </button>
+
+              <button
+                onClick={togglePlay}
+                className="w-10 h-10 bg-white hover:bg-gray-200 text-black rounded-full flex items-center justify-center transition-all hover:scale-105"
+              >
+                {playerState.isPlaying ? (
+                  <Pause size="18" color="#000" variant="Bold" />
+                ) : (
+                  <Play
+                    size="18"
+                    color="#000"
+                    variant="Bold"
+                    className="ml-0.5"
+                  />
+                )}
+              </button>
+
+              <button className="text-gray-400 hover:text-white transition-colors">
+                <Next size="20" />
+              </button>
+            </div>
+
+            {/* Time and Waveform */}
+            <div className="flex items-center space-x-4 w-full">
+              <span className="text-gray-400 text-xs w-10 text-right">
+                {formatTime(playerState.currentTime)}
+              </span>
+
+              <WaveformVisualization />
+
+              <span className="text-gray-400 text-xs w-10">
+                {formatTime(playerState.duration)}
+              </span>
+            </div>
+          </div>
+
+          {/* Right: Volume and More */}
+          <div className="flex items-center space-x-4 flex-1 justify-end max-w-xs">
+            <button className="text-gray-400 hover:text-white transition-colors">
+              <More size="20" />
             </button>
-            {isVolumeExpanded && (
-              <div className="w-24">
+
+            <button className="text-gray-400 hover:text-white transition-colors">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                />
+              </svg>
+            </button>
+
+            {/* Volume Control */}
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setIsVolumeExpanded(!isVolumeExpanded)}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                {playerState.volume === 0 ? (
+                  <VolumeSlash size="20" />
+                ) : playerState.volume < 0.5 ? (
+                  <VolumeLow size="20" />
+                ) : (
+                  <VolumeHigh size="20" />
+                )}
+              </button>
+
+              <div className="w-20">
                 <input
                   type="range"
                   min="0"
@@ -117,35 +182,67 @@ const MusicPlayer = () => {
                   step="0.1"
                   value={playerState.volume}
                   onChange={handleVolumeChange}
-                  className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer"
-                  style={{
-                    background: `linear-gradient(to right, #ffffff 0%, #ffffff ${playerState.volume * 100}%, #374151 ${playerState.volume * 100}%, #374151 100%)`
-                  }}
+                  className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer volume-slider"
                 />
               </div>
-            )}
+            </div>
+
+            <button className="text-gray-400 hover:text-white transition-colors">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                />
+              </svg>
+            </button>
+
+            <button
+              onClick={closePlayer}
+              className="text-gray-400 hover:text-red-400 transition-colors"
+              title="Close player"
+            >
+              <CloseCircle size="20" />
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Custom Slider Styles */}
+      {/* Custom Styles */}
       <style jsx>{`
-        .slider::-webkit-slider-thumb {
+        .volume-slider::-webkit-slider-thumb {
           appearance: none;
-          height: 16px;
-          width: 16px;
+          height: 12px;
+          width: 12px;
           border-radius: 50%;
           background: #ffffff;
           cursor: pointer;
-          border: 2px solid #111111;
+          border: none;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
-        .slider::-moz-range-thumb {
-          height: 16px;
-          width: 16px;
+        .volume-slider::-moz-range-thumb {
+          height: 12px;
+          width: 12px;
           border-radius: 50%;
           background: #ffffff;
           cursor: pointer;
-          border: 2px solid #111111;
+          border: none;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .volume-slider {
+          background: linear-gradient(
+            to right,
+            #ffffff 0%,
+            #ffffff ${playerState.volume * 100}%,
+            #4b5563 ${playerState.volume * 100}%,
+            #4b5563 100%
+          );
         }
       `}</style>
     </div>

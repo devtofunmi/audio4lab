@@ -1,7 +1,7 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Track, PlayerState } from '@/types/audio';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { Track, PlayerState } from '../types/audio';
 
 interface PlayerContextType {
   playerState: PlayerState;
@@ -9,6 +9,7 @@ interface PlayerContextType {
   togglePlay: () => void;
   setVolume: (volume: number) => void;
   setCurrentTime: (time: number) => void;
+  closePlayer: () => void;
 }
 
 const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
@@ -35,11 +36,16 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   });
 
   const setTrack = (track: Track) => {
+    // Convert duration string (e.g., "3:14") to seconds
+    const [minutes, seconds] = track.duration.split(':').map(Number);
+    const durationInSeconds = minutes * 60 + seconds;
+    
     setPlayerState(prev => ({
       ...prev,
       currentTrack: track,
       isPlaying: true,
       currentTime: 0,
+      duration: durationInSeconds,
     }));
   };
 
@@ -64,12 +70,52 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     }));
   };
 
+  const closePlayer = () => {
+    setPlayerState(prev => ({
+      ...prev,
+      currentTrack: null,
+      isPlaying: false,
+      currentTime: 0,
+    }));
+  };
+
+  // Simulate time progression
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    
+    if (playerState.isPlaying && playerState.currentTrack) {
+      interval = setInterval(() => {
+        setPlayerState(prev => {
+          const newTime = prev.currentTime + 1;
+          if (newTime >= prev.duration) {
+            return {
+              ...prev,
+              currentTime: prev.duration,
+              isPlaying: false,
+            };
+          }
+          return {
+            ...prev,
+            currentTime: newTime,
+          };
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [playerState.isPlaying, playerState.currentTrack]);
+
   const value = {
     playerState,
     setTrack,
     togglePlay,
     setVolume,
     setCurrentTime,
+    closePlayer,
   };
 
   return (

@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import MusicCardSimple from "../components/MusicCardSimple";
+import MusicPlayer from "../components/MusicPlayer";
 import { SearchNormal, Notification } from "iconsax-react";
 import { Track } from "../types/audio";
 import { PlayerProvider } from "../contexts/PlayerContext";
@@ -133,15 +134,15 @@ const Home = () => {
     <PlayerProvider>
       <div className="flex bg-[#0d0d0d] min-h-screen text-white">
         <Sidebar />
-        <div className="ml-64 flex-1 p-8">
-          <header className="fixed top-0 right-50 z-10 flex items-center justify-between p-8 bg-[#0d0d0d]">
+        <div className="ml-64 flex-1">
+          <header className="fixed top-0 left-64 right-0 z-10 flex items-center justify-between p-8 bg-[#0d0d0d] border-b border-gray-800">
             <h1 className="text-3xl font-bold text-white">Home</h1>
-            <div className="flex fixed w-full items-center space-x-4">
+            <div className="flex items-center space-x-4">
               <div className="relative">
                 <input
                   type="text"
                   placeholder="Search"
-                  className="bg-[#171717] border-2 border-gray-600 rounded-full pl-10 pr-4 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors"
+                  className="bg-[#171717] border-2 border-gray-600 rounded-full pl-10 pr-4 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors w-80"
                 />
                 <SearchNormal
                   size="20"
@@ -154,27 +155,28 @@ const Home = () => {
                 color="#ffffff"
                 className="cursor-pointer hover:scale-110 transition-transform"
               />
-             
             </div>
           </header>
 
-          <section className="mb-8">
-            <h2 className="text-xl font-bold mb-6 text-white">
-              Recommended for you
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-              {homeContent.map((track) => (
-                <MusicCardSimple
-                  key={track.id}
-                  track={track}
-                  showDownload={true}
-                  showPlayButton={true}
-                />
-              ))}
-            </div>
-          </section>
+          <div className="pt-24 p-8 pb-32">
+            <section className="mb-8">
+              <h2 className="text-xl font-bold mb-6 text-white">
+                Recommended for you
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                {homeContent.map((track) => (
+                  <MusicCardSimple
+                    key={track.id}
+                    track={track}
+                    showDownload={true}
+                    showPlayButton={true}
+                  />
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
-        {/* <Player /> */}
+        <MusicPlayer />
       </div>
     </PlayerProvider>
   );
