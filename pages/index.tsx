@@ -140,9 +140,9 @@ export default function Home() {
           </div>
 
           {/* Main Features Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-8 px-2 sm:px-0">
             {/* AI Music Generation */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-8 lg:p-8">
               <h3 className="text-2xl font-bold mb-4">AI Music Generation</h3>
               <p className="text-gray-300 mb-8 leading-relaxed">
                 Create original music tracks in any genre or style. From
@@ -215,7 +215,7 @@ export default function Home() {
             </div>
 
             {/* Sample Library */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8">
               <h3 className="text-2xl font-bold mb-4">
                 Premium Sample Library
               </h3>
@@ -256,9 +256,9 @@ export default function Home() {
           </div>
 
           {/* Second Row */}
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-0">
             {/* Sound Effects Generator */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8">
               <h3 className="text-2xl font-bold mb-4">
                 Sound Effects Generator
               </h3>
@@ -300,7 +300,7 @@ export default function Home() {
             </div>
 
             {/* Music Editing Tools */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8">
               <h3 className="text-2xl font-bold mb-4">Music Editing Suite</h3>
               <p className="text-gray-300 mb-8 leading-relaxed">
                 Edit, mix, and master your tracks with professional-grade tools.
@@ -339,8 +339,6 @@ export default function Home() {
               </button>
             </div>
           </div>
-
-          
         </div>
       </section>
 
@@ -364,10 +362,18 @@ export default function Home() {
           }
 
           .my-swiper-custom .swiper-slide {
-            width: 300px; /* Adjust the slide width to control the coverflow effect */
+            width: 300px; /* Default size for small screens */
             height: 300px;
             border-radius: 12px;
             overflow: hidden;
+          }
+
+          @media (min-width: 768px) {
+            .my-swiper-custom .swiper-slide {
+              width: 400px; /* Larger size for medium screens and up */
+              height: 400px;
+              border-radius: 16px;
+            }
           }
 
           .my-swiper-custom .swiper-slide img {
