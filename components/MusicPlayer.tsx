@@ -17,7 +17,7 @@ import {
 import Image from "next/image";
 
 const MusicPlayer = () => {
-  const { playerState, togglePlay, setVolume, setCurrentTime, closePlayer } =
+  const { playerState, togglePlay, setVolume, closePlayer } =
     usePlayer();
   const [isVolumeExpanded, setIsVolumeExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
