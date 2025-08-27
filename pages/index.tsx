@@ -88,7 +88,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative h-screen overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
           <div className="text-center">
@@ -134,21 +134,20 @@ export default function Home() {
               For CREATORS
             </p>
             <h2 className="text-4xl md:text-5xl font-bold mb-8 max-w-4xl">
-              Create the most advanced audio content with our AI-powered tools
-              and features
+              Create professional music and sound effects with our AI-powered
+              tools
             </h2>
           </div>
 
           {/* Main Features Grid */}
           <div className="grid lg:grid-cols-2 gap-8 mb-8">
-            {/* Text to Speech */}
+            {/* AI Music Generation */}
             <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-4">Text to Speech</h3>
+              <h3 className="text-2xl font-bold mb-4">AI Music Generation</h3>
               <p className="text-gray-300 mb-8 leading-relaxed">
-                Transform your written content into natural-sounding speech.
-                Perfect for voiceovers, narrations, and audio content creation.
-                Choose from multiple voice models for different styles and
-                emotions.
+                Create original music tracks in any genre or style. From
+                background music for videos to full compositions, generate
+                royalty-free music that perfectly matches your creative vision.
               </p>
 
               {/* Features List */}
@@ -157,10 +156,10 @@ export default function Home() {
                   <div className="w-2 h-2 bg-white rounded-full mt-2 mr-4 flex-shrink-0"></div>
                   <div>
                     <span className="text-white font-semibold">
-                      Natural Voices
+                      100+ Genres
                     </span>
                     <p className="text-gray-400 text-sm">
-                      Lifelike speech generation for professional content
+                      From classical to electronic, hip-hop to ambient
                     </p>
                   </div>
                 </div>
@@ -168,10 +167,10 @@ export default function Home() {
                   <div className="w-2 h-2 bg-white rounded-full mt-2 mr-4 flex-shrink-0"></div>
                   <div>
                     <span className="text-white font-semibold">
-                      Multiple Languages
+                      Custom Length & BPM
                     </span>
                     <p className="text-gray-400 text-sm">
-                      Support for 29+ languages and accents
+                      Generate tracks from 15 seconds to 10 minutes
                     </p>
                   </div>
                 </div>
@@ -179,74 +178,12 @@ export default function Home() {
                   <div className="w-2 h-2 bg-white rounded-full mt-2 mr-4 flex-shrink-0"></div>
                   <div>
                     <span className="text-white font-semibold">
-                      Emotion Control
+                      Mood & Energy Control
                     </span>
                     <p className="text-gray-400 text-sm">
-                      Adjust tone and emotion for perfect delivery
+                      Fine-tune the emotional tone of your music
                     </p>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Speech to Text */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-4">Speech to Text</h3>
-              <p className="text-gray-300 mb-8 leading-relaxed">
-                Convert your audio recordings into accurate text transcriptions.
-                Perfect for creating subtitles, transcribing interviews, or
-                converting voice notes to written content.
-              </p>
-
-              {/* Metrics */}
-              <div className="flex items-center space-x-8 mb-8">
-                <div>
-                  <div className="text-3xl font-bold">98%</div>
-                  <div className="text-gray-400 text-sm">Accuracy</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold">Fast</div>
-                  <div className="text-gray-400 text-sm">
-                    Real-time processing
-                  </div>
-                </div>
-              </div>
-
-              {/* Demo Interface */}
-              <div className="bg-black/50 rounded-lg p-4 border border-gray-700">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-blue-400 text-sm">
-                    Audio Transcription ⚡
-                  </span>
-                </div>
-                <div className="space-y-2 text-sm">
-                  <div className="text-gray-400">Upload audio file</div>
-                  <div className="text-gray-500">Get instant transcription</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Voice Changer and Easy APIs Row */}
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Music Generation */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-4">Music Generation</h3>
-              <p className="text-gray-300 mb-8 leading-relaxed">
-                Create original music tracks in any genre or style. From
-                background music for videos to full compositions, generate
-                royalty-free music that perfectly matches your creative vision.
-              </p>
-
-              {/* Metrics */}
-              <div className="flex items-center space-x-8 mb-8">
-                <div>
-                  <div className="text-3xl font-bold">100+</div>
-                  <div className="text-gray-400 text-sm">Genres</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold">Custom</div>
-                  <div className="text-gray-400 text-sm">Length & Style</div>
                 </div>
               </div>
 
@@ -264,10 +201,10 @@ export default function Home() {
                   </button>
                   <div className="flex space-x-2">
                     <span className="bg-gray-700 px-3 py-1 rounded text-sm">
-                      INPUT
+                      GENERATE
                     </span>
                     <span className="bg-gray-700 px-3 py-1 rounded text-sm">
-                      OUTPUT
+                      PREVIEW
                     </span>
                   </div>
                   <div className="ml-auto">
@@ -277,13 +214,58 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Sound Effects */}
+            {/* Sample Library */}
             <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-4">Sound Effects</h3>
+              <h3 className="text-2xl font-bold mb-4">
+                Premium Sample Library
+              </h3>
+              <p className="text-gray-300 mb-8 leading-relaxed">
+                Access thousands of high-quality samples, loops, and stems
+                created by professional producers. Download instantly and use in
+                your projects without any licensing worries.
+              </p>
+
+              {/* Metrics */}
+              <div className="flex items-center space-x-8 mb-8">
+                <div>
+                  <div className="text-3xl font-bold">10K+</div>
+                  <div className="text-gray-400 text-sm">Samples</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold">Free</div>
+                  <div className="text-gray-400 text-sm">Commercial Use</div>
+                </div>
+              </div>
+
+              {/* Demo Interface */}
+              <div className="bg-black/50 rounded-lg p-4 border border-gray-700">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-blue-400 text-sm">
+                    Sample Browser 🎵
+                  </span>
+                  <button className="text-white text-xs bg-gray-700 px-2 py-1 rounded">
+                    DOWNLOAD
+                  </button>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="text-gray-400">Browse by genre, BPM, key</div>
+                  <div className="text-gray-500">Preview before download</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Second Row */}
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Sound Effects Generator */}
+            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold mb-4">
+                Sound Effects Generator
+              </h3>
               <p className="text-gray-300 mb-8 leading-relaxed">
                 Generate custom sound effects for any project. From cinematic
                 impacts to ambient sounds, create the perfect audio atmosphere
-                for your content.
+                for your content with AI precision.
               </p>
 
               {/* Features List */}
@@ -292,10 +274,10 @@ export default function Home() {
                   <div className="w-2 h-2 bg-white rounded-full mt-2 mr-4 flex-shrink-0"></div>
                   <div>
                     <span className="text-white font-semibold">
-                      Custom Sound Effects
+                      Text-to-Sound
                     </span>
                     <p className="text-gray-400 text-sm">
-                      Generate any sound you can imagine
+                      Describe any sound and generate it instantly
                     </p>
                   </div>
                 </div>
@@ -303,10 +285,10 @@ export default function Home() {
                   <div className="w-2 h-2 bg-white rounded-full mt-2 mr-4 flex-shrink-0"></div>
                   <div>
                     <span className="text-white font-semibold">
-                      High Quality Audio
+                      Professional Quality
                     </span>
                     <p className="text-gray-400 text-sm">
-                      Professional-grade sound effects
+                      Studio-grade sound effects up to 48kHz
                     </p>
                   </div>
                 </div>
@@ -316,66 +298,49 @@ export default function Home() {
                 CREATE SOUNDS
               </button>
             </div>
-          </div>
 
-          {/* Conversational AI Section */}
-          <div className="mt-8 bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Conversational AI</h3>
-                <p className="text-gray-300 mb-8 leading-relaxed">
-                  Create interactive voice experiences for your content. Perfect
-                  for podcasts, audiobooks, and interactive storytelling with
-                  natural conversation flow.
-                </p>
+            {/* Music Editing Tools */}
+            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold mb-4">Music Editing Suite</h3>
+              <p className="text-gray-300 mb-8 leading-relaxed">
+                Edit, mix, and master your tracks with professional-grade tools.
+                Adjust tempo, pitch, add effects, and create seamless loops for
+                your projects.
+              </p>
 
-                {/* Features List */}
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-                    <span>Natural dialogue</span>
+              {/* Features List */}
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-white rounded-full mt-2 mr-4 flex-shrink-0"></div>
+                  <div>
+                    <span className="text-white font-semibold">
+                      Stem Separation
+                    </span>
+                    <p className="text-gray-400 text-sm">
+                      Isolate vocals, drums, bass, and instruments
+                    </p>
                   </div>
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-                    <span>Multiple voices</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-                    <span>Emotion control</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-                    <span>Interactive stories</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-                    <span>Character voices</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-                    <span>Script generation</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-                    <span>Voice cloning</span>
+                </div>
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-white rounded-full mt-2 mr-4 flex-shrink-0"></div>
+                  <div>
+                    <span className="text-white font-semibold">
+                      Audio Effects
+                    </span>
+                    <p className="text-gray-400 text-sm">
+                      Reverb, delay, EQ, compression, and more
+                    </p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-center">
-                <button className="bg-black border border-gray-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors flex items-center space-x-2">
-                  <svg
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
-                  </svg>
-                  <span>TRY CONVERSATION</span>
-                </button>
-              </div>
+              <button className="bg-black border border-gray-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
+                OPEN EDITOR
+              </button>
             </div>
           </div>
+
+          
         </div>
       </section>
 
