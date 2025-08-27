@@ -4,6 +4,7 @@ import { Track } from '@/types/audio';
 import { usePlayer } from '@/contexts/PlayerContext';
 import { useState } from 'react';
 import { Play, Pause, DocumentDownload } from 'iconsax-react';
+import Image from 'next/image';
 
 interface MusicCardProps {
   track: Track;
@@ -48,9 +49,11 @@ const MusicCardSimple: React.FC<MusicCardProps> = ({
       <div className="relative mb-4">
         <div className="w-full h-40 bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center overflow-hidden">
           {track.coverArt ? (
-            <img 
+            <Image 
               src='/billie.jpg'
               alt={track.title} 
+              width={160}
+              height={160}
               className="w-full h-full object-cover"
             />
           ) : (

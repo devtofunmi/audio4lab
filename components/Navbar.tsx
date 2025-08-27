@@ -1,15 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const router = useRouter();
-
-
-  const isActive = (href: string) => router.pathname === href;
 
   return (
     <nav className="bg-black border-b border-gray-800 sticky top-0 z-50">

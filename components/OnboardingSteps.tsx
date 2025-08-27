@@ -32,7 +32,7 @@ interface PersonalInfo {
 export function PricingStep({
   onNext,
   onSkip,
-  selectedValue,
+  selectedValue: _selectedValue,
   onSelect,
 }: StepProps) {
   return (

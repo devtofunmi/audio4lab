@@ -6,6 +6,7 @@ import { EffectCoverflow, Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import Image from "next/image";
 // The original mock data is included here for a self-contained example.
 const featuredTracks = [
   {
@@ -406,7 +407,7 @@ export default function Home() {
           >
             {featuredTracks.map((track) => (
               <SwiperSlide key={track.id}>
-                <img src={track.image} alt={track.title} />
+                <Image src={track.image} alt={track.title} width={300} height={300} />
               </SwiperSlide>
             ))}
           </Swiper>
