@@ -2,23 +2,18 @@
 
 import { useState } from "react";
 import { useRouter } from "next/router";
+
 import {
   PricingStep,
-  FeaturesStep,
-  ProjectStep,
+  MusicInterestsStep,
   RoleStep,
-  PlatformStep,
-  ReferralStep,
   PersonalStep,
 } from "@/components/OnboardingSteps";
 
 interface OnboardingData {
   plan: string;
-  features: string[];
-  projectType: string;
+  musicInterests: string[];
   userRole: string;
-  platform: string;
-  referralSource: string;
   personalInfo: {
     name: string;
     dateOfBirth: {
@@ -30,26 +25,15 @@ interface OnboardingData {
   };
 }
 
-const steps = [
-  "personal",
-  "features",
-  "project",
-  "role",
-  "platform",
-  "referral",
-  "pricing",
-];
+const steps = ["personal", "interests", "role", "pricing"];
 
 export default function Onboarding() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState<OnboardingData>({
     plan: "",
-    features: [],
-    projectType: "",
+    musicInterests: [],
     userRole: "",
-    platform: "",
-    referralSource: "",
     personalInfo: {
       name: "",
       dateOfBirth: { day: "", month: "", year: "" },
@@ -78,82 +62,112 @@ export default function Onboarding() {
     setData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const goToStep = (stepIndex: number) => {
+    setCurrentStep(stepIndex);
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen bg-[#0d0d0d] text-white flex flex-col items-center justify-center px-4">
       {/* Progress Indicator */}
-      <div className="fixed bottom-8 flex space-x-2">
-        {steps.map((_, index) => (
+      <div className="fixed bottom-8 flex space-x-2 animate-fade-in-up">
+        {steps.map((step, index) => (
           <div
             key={index}
-            className={`w-2 h-2 rounded-full ${
-              index === currentStep ? "bg-white" : "bg-gray-600"
+            onClick={() => goToStep(index)}
+            className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 hover:scale-110 ${
+              index === currentStep
+                ? "bg-white"
+                : "bg-gray-600 hover:bg-gray-500"
             }`}
+            title={`Go to ${step} step`}
           />
         ))}
       </div>
 
       <div className="w-full max-w-4xl mb-20">
-        {currentStep === 0 && (
-          <PersonalStep
-            selectedValue={data.personalInfo}
-            onSelect={(info) => updateData("personalInfo", info)}
-            onNext={nextStep}
-          />
-        )}
+        <div className="step-container">
+          {currentStep === 0 && (
+            <div className="animate-slide-in">
+              <PersonalStep
+                selectedValue={data.personalInfo}
+                onSelect={(info) => updateData("personalInfo", info)}
+                onNext={nextStep}
+              />
+            </div>
+          )}
 
-        {currentStep === 1 && (
-          <FeaturesStep
-            selectedValue={data.features}
-            onSelect={(features) => updateData("features", features)}
-            onNext={nextStep}
-            onSkip={skip}
-          />
-        )}
+          {currentStep === 1 && (
+            <div className="animate-slide-in">
+              <MusicInterestsStep
+                selectedValue={data.musicInterests}
+                onSelect={(interests) =>
+                  updateData("musicInterests", interests)
+                }
+                onNext={nextStep}
+                onSkip={skip}
+              />
+            </div>
+          )}
 
-        {currentStep === 2 && (
-          <ProjectStep
-            selectedValue={data.projectType}
-            onSelect={(project) => updateData("projectType", project)}
-            onNext={nextStep}
-            onSkip={skip}
-          />
-        )}
+          {currentStep === 2 && (
+            <div className="animate-slide-in">
+              <RoleStep
+                selectedValue={data.userRole}
+                onSelect={(role) => updateData("userRole", role)}
+                onNext={nextStep}
+                onSkip={skip}
+              />
+            </div>
+          )}
 
-        {currentStep === 3 && (
-          <RoleStep
-            selectedValue={data.userRole}
-            onSelect={(role) => updateData("userRole", role)}
-            onNext={nextStep}
-            onSkip={skip}
-          />
-        )}
-
-        {currentStep === 4 && (
-          <PlatformStep
-            selectedValue={data.platform}
-            onSelect={(platform) => updateData("platform", platform)}
-            onNext={nextStep}
-          />
-        )}
-
-        {currentStep === 5 && (
-          <ReferralStep
-            selectedValue={data.referralSource}
-            onSelect={(source) => updateData("referralSource", source)}
-            onNext={nextStep}
-            onSkip={skip}
-          />
-        )}
-
-        {currentStep === 6 && (
-          <PricingStep
-            selectedValue={data.plan}
-            onSelect={(plan) => updateData("plan", plan)}
-            onNext={handleComplete}
-            onSkip={handleComplete}
-          />
-        )}
+          {currentStep === 3 && (
+            <div className="animate-slide-in">
+              <PricingStep
+                selectedValue={data.plan}
+                onSelect={(plan) => updateData("plan", plan)}
+                onNext={handleComplete}
+                onSkip={handleComplete}
+              />
+            </div>
+          )}
+        </div>
       </div>
+
+      <style jsx>{`
+        .animate-fade-in-up {
+          animation: fadeInUp 0.6s ease-out 0.5s both;
+        }
+
+        .animate-slide-in {
+          animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .step-container > div {
+          min-height: 400px;
+        }
+      `}</style>
     </div>
   );
 }
