@@ -27,9 +27,11 @@ const Navbar = () => {
 
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-              Login
-            </button>
+            <Link href="/login">
+              <button className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Login
+              </button>
+            </Link>
             <Link href="/onboarding">
               <button className="bg-white hover:bg-gray-200 cursor-pointer text-black px-4 py-2 rounded-full text-sm font-medium transition-colors">
                 Sign Up
@@ -60,9 +62,11 @@ const Navbar = () => {
                       <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-900 rounded-lg mt-2">
            
               <div className="pt-4 space-y-2">
-                <button className="block w-full text-left text-gray-300 hover:text-white px-3 py-2 rounded-full text-base font-medium transition-colors">
-                  Login
-                </button>
+                <Link href="/login">
+                  <button className="block w-full text-left text-gray-300 hover:text-white px-3 py-2 rounded-full text-base font-medium transition-colors">
+                    Login
+                  </button>
+                </Link>
                 <Link href="/onboarding">
                   <button className="block w-full cursor-pointer bg-white hover:bg-gray-200 text-black px-3 py-2 rounded-full text-base font-medium transition-colors">
                     Sign Up
