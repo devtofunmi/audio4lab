@@ -9,14 +9,13 @@ interface PlayerContextType {
   togglePlay: () => void;
   setVolume: (volume: number) => void;
   setCurrentTime: (time: number) => void;
-  clearTrack: () => void;
 }
 
 const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
 
 export const usePlayer = () => {
   const context = useContext(PlayerContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('usePlayer must be used within a PlayerProvider');
   }
   return context;
@@ -32,16 +31,15 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     isPlaying: false,
     currentTime: 0,
     duration: 0,
-    volume: 0.7,
+    volume: 1,
   });
 
   const setTrack = (track: Track) => {
     setPlayerState(prev => ({
       ...prev,
       currentTrack: track,
-      isPlaying: false,
+      isPlaying: true,
       currentTime: 0,
-      duration: 0,
     }));
   };
 
@@ -59,30 +57,19 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     }));
   };
 
-  const setCurrentTime = (time: number) => {
+  const setCurrentTime = (currentTime: number) => {
     setPlayerState(prev => ({
       ...prev,
-      currentTime: time,
+      currentTime,
     }));
   };
 
-  const clearTrack = () => {
-    setPlayerState(prev => ({
-      ...prev,
-      currentTrack: null,
-      isPlaying: false,
-      currentTime: 0,
-      duration: 0,
-    }));
-  };
-
-  const value: PlayerContextType = {
+  const value = {
     playerState,
     setTrack,
     togglePlay,
     setVolume,
     setCurrentTime,
-    clearTrack,
   };
 
   return (

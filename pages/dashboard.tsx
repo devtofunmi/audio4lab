@@ -1,242 +1,183 @@
-import { useState } from 'react';
+import React from "react";
+import Sidebar from "../components/Sidebar";
+import MusicCardSimple from "../components/MusicCardSimple";
+import { SearchNormal, Notification } from "iconsax-react";
+import { Track } from "../types/audio";
+import { PlayerProvider } from "../contexts/PlayerContext";
 
-import { 
-  FaHome, 
-  FaMicrophone, 
-  FaVolumeUp, 
-  FaUser,
-  FaBell,
+const homeContent: Track[] = [
+  {
+    id: "1",
+    title: "bad guy",
+    genre: "Pop",
+    mood: "Energetic",
+    duration: "3:14",
+    url: "/audio/bad-guy.mp3",
+    coverArt: "/images/bad-guy-cover.jpg",
+    bpm: 135,
+  },
+  {
+    id: "2",
+    title: "Happier Than Ever",
+    genre: "Pop-Rock",
+    mood: "Melancholic",
+    duration: "4:58",
+    url: "/audio/happier-than-ever.mp3",
+    coverArt: "/images/happier-than-ever-cover.jpg",
+    bpm: 81,
+  },
+  {
+    id: "3",
+    title: "Therefore I Am",
+    genre: "Alternative",
+    mood: "Confident",
+    duration: "2:54",
+    url: "/audio/therefore-i-am.mp3",
+    coverArt: "/images/therefore-i-am-cover.jpg",
+    bpm: 94,
+  },
+  {
+    id: "4",
+    title: "ocean eyes",
+    genre: "Indie Pop",
+    mood: "Dreamy",
+    duration: "3:20",
+    url: "/audio/ocean-eyes.mp3",
+    coverArt: "/images/ocean-eyes-cover.jpg",
+    bpm: 73,
+  },
+  {
+    id: "5",
+    title: "when the party's over",
+    genre: "Ballad",
+    mood: "Sad",
+    duration: "3:16",
+    url: "/audio/when-the-partys-over.mp3",
+    coverArt: "/images/when-the-partys-over-cover.jpg",
+    bpm: 62,
+  },
+  {
+    id: "6",
+    title: "What Was I Made For?",
+    genre: "Ballad",
+    mood: "Introspective",
+    duration: "3:42",
+    url: "/audio/what-was-i-made-for.mp3",
+    coverArt: "/images/what-was-i-made-for-cover.jpg",
+    bpm: 78,
+  },
+  {
+    id: "7",
+    title: "bury a friend",
+    genre: "Dark Pop",
+    mood: "Eerie",
+    duration: "3:13",
+    url: "/audio/bury-a-friend.mp3",
+    coverArt: "/images/bury-a-friend-cover.jpg",
+    bpm: 120,
+  },
+  {
+    id: "8",
+    title: "No Time To Die",
+    genre: "Orchestral Pop",
+    mood: "Dramatic",
+    duration: "4:02",
+    url: "/audio/no-time-to-die.mp3",
+    coverArt: "/images/no-time-to-die-cover.jpg",
+    bpm: 75,
+  },
+  {
+    id: "9",
+    title: "everything i wanted",
+    genre: "Pop",
+    mood: "Reflective",
+    duration: "4:05",
+    url: "/audio/everything-i-wanted.mp3",
+    coverArt: "/images/everything-i-wanted-cover.jpg",
+    bpm: 120,
+  },
+  {
+    id: "10",
+    title: "lovely",
+    genre: "Indie Pop",
+    mood: "Emotional",
+    duration: "3:20",
+    url: "/audio/lovely.mp3",
+    coverArt: "/images/lovely-cover.jpg",
+    bpm: 115,
+  },
+  {
+    id: "11",
+    title: "LUNCH",
+    genre: "Pop",
+    mood: "Flirty",
+    duration: "2:59",
+    url: "/audio/lunch.mp3",
+    coverArt: "/images/lunch-cover.jpg",
+    bpm: 125,
+  },
+  {
+    id: "12",
+    title: "L'AMOUR DE MA VIE",
+    genre: "Synth-Pop",
+    mood: "Rebellious",
+    duration: "5:33",
+    url: "/audio/lamour-de-ma-vie.mp3",
+    coverArt: "/images/lamour-de-ma-vie-cover.jpg",
+    bpm: 125,
+  },
+];
 
-  FaBars,
-  FaTimes
-} from 'react-icons/fa';
-
-
-export default function Dashboard() {
-  const [selectedTab, setSelectedTab] = useState('home');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const sidebarItems = [
-    { id: 'home', label: 'Home', icon: FaHome },
-    { id: 'voices', label: 'Voices', icon: FaMicrophone },
-  ];
-
-  const playgroundItems = [
-    { id: 'text-to-speech', label: 'Text to Speech', icon: FaMicrophone },
-    { id: 'voice-changer', label: 'Voice Changer', icon: FaVolumeUp },
-    { id: 'sound-effects', label: 'Sound Effects', icon: FaVolumeUp },
-    { id: 'voice-isolator', label: 'Voice Isolator', icon: FaMicrophone },
-  ];
-
-  const quickActions = [
-    { id: 'instant-speech', label: 'Instant speech', icon: 'd+', color: 'from-blue-500 to-purple-600', hoverColor: 'from-blue-600 to-purple-700' },
-    { id: 'audiobook', label: 'Audiobook', icon: '🎧', color: 'from-orange-500 to-red-600', hoverColor: 'from-orange-600 to-red-700' },
-    { id: 'conversational-ai', label: 'Conversational AI', icon: '💬', color: 'from-purple-500 to-pink-600', hoverColor: 'from-purple-600 to-pink-700' },
-    { id: 'music', label: 'Music', icon: '🎵', color: 'from-green-500 to-lime-600', hoverColor: 'from-green-600 to-lime-700' },
-    { id: 'sound-effect', label: 'Sound effect', icon: '🔉', color: 'from-sky-500 to-cyan-600', hoverColor: 'from-sky-600 to-cyan-700' },
-    { id: 'dubbed-video', label: 'Dubbed video', icon: '🎬', color: 'from-rose-500 to-fuchsia-600', hoverColor: 'from-rose-600 to-fuchsia-700' },
-  ];
-
-  const libraryItems = [
-    {
-      id: 1,
-      name: 'Vincent - Deep & Relaxing',
-      description: 'A smooth, calming British voice with a deep and slightly raspy...',
-      avatar: '👨',
-      color: 'bg-pink-500'
-    },
-    {
-      id: 2,
-      name: 'Father Christmas - magical storyteller, older British...',
-      description: 'A festive Father Christmas sounding old age character with hints...',
-      avatar: '🎅',
-      color: 'bg-green-500'
-    },
-    {
-      id: 3,
-      name: 'Clara - Casual Conversational',
-      description: 'A natural, authentic female voice in American English, perfect for...',
-      avatar: '👩',
-      color: 'bg-yellow-500'
-    },
-    {
-      id: 4,
-      name: 'Edward',
-      description: 'Young American Confident, Assertive Male Voice with Midwest...',
-      avatar: '👨',
-      color: 'bg-purple-500'
-    },
-    {
-      id: 5,
-      name: 'Cal - Deep and Calming',
-      description: 'A deep, calming, and authoritative middle-aged American male...',
-      avatar: '👨',
-      color: 'bg-blue-500'
-    }
-  ];
-
-
+const Home = () => {
   return (
-    <div className="min-h-screen bg-black text-white flex">
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside className={`
-        fixed lg:static inset-y-0 left-0 z-50 w-64 
-        bg-gray-900/50 border-r border-gray-800 
-        transform transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `}>
-        {/* Mobile Close Button */}
-        <div className="lg:hidden flex justify-end p-4">
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="text-gray-400 hover:text-white"
-          >
-            <FaTimes className="w-6 h-6" />
-          </button>
-        </div>
-
-        {/* Logo */}
-        <div className="p-6 border-b border-gray-800">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-              <span className="text-black font-bold text-sm">A4</span>
+    <PlayerProvider>
+      <div className="flex bg-[#0d0d0d] min-h-screen text-white">
+        <Sidebar />
+        <div className="ml-64 flex-1 p-8">
+          <header className="fixed top-0 right-50 z-10 flex items-center justify-between p-8 bg-[#0d0d0d]">
+            <h1 className="text-3xl font-bold text-white">Home</h1>
+            <div className="flex fixed w-full items-center space-x-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="bg-[#171717] border-2 border-gray-600 rounded-full pl-10 pr-4 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors"
+                />
+                <SearchNormal
+                  size="20"
+                  color="#9CA3AF"
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2"
+                />
+              </div>
+              <Notification
+                size="24"
+                color="#ffffff"
+                className="cursor-pointer hover:scale-110 transition-transform"
+              />
+             
             </div>
-            <span className="font-bold text-lg">Audio4Lab</span>
-          </div>
-         
-        </div>
+          </header>
 
-        {/* Navigation */}
-        <nav className="p-4">
-          {/* Main Items */}
-          <div className="space-y-1">
-            {sidebarItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  setSelectedTab(item.id);
-                  setSidebarOpen(false);
-                }}
-                className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
-                  selectedTab === item.id
-                    ? 'bg-gray-800/50 text-white'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                }`}
-              >
-                <item.icon className="w-4 h-4" />
-                <span>{item.label}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Playground Section */}
-          <div className="mt-6">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-              Playground
-            </h3>
-            <div className="space-y-1">
-              {playgroundItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setSidebarOpen(false)}
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
-                >
-                  <item.icon className="w-4 h-4" />
-                  <span className="text-sm">{item.label}</span>
-                </button>
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-6 text-white">
+              Recommended for you
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              {homeContent.map((track) => (
+                <MusicCardSimple
+                  key={track.id}
+                  track={track}
+                  showDownload={true}
+                  showPlayButton={true}
+                />
               ))}
             </div>
-          </div>
-
-
-          {/* User Profile */}
-          <div className="mt-6 flex items-center space-x-3 p-3 bg-gray-800 rounded-lg">
-            <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center">
-              <FaUser className="w-4 h-4" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">Audio4Lab User</p>
-              <p className="text-xs text-gray-400 truncate">My Workspace</p>
-            </div>
-          </div>
-        </nav>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 overflow-auto bg-[#0B0B0C]">
-        {/* Header */}
-        <header className="bg-[#0B0B0C] md:hidden border-b border-[#1C1C1E] p-4 lg:p-6">
-          <div className="flex items-center justify-between">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="lg:hidden text-gray-400 hover:text-white"
-            >
-              <FaBars className="w-6 h-6" />
-            </button>
-            <span className="font-bold text-lg">Dashboard</span>
-            <div className="flex items-center space-x-4">
-              <button className="text-gray-400 hover:text-white">
-                <FaBell className="w-5 h-5" />
-              </button>
-              <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center">
-                <span className="text-sm font-semibold">J</span>
-              </div>
-            </div>
-          </div>
-        </header>
-        {/* Home Content */}
-        {selectedTab === 'home' && (
-          <div className="p-4 lg:p-6 space-y-8">
-            <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-semibold">Good afternoon, Jesutofunmi</h1>
-                
-            </div>
-            
-            <div className="my-8">
-              <h2 className="text-xl font-semibold">My Workspace</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
-                {quickActions.map((item) => (
-                  <div key={item.id} className="bg-[#1C1C1E] rounded-xl p-4 flex flex-col items-start space-y-2 transition-transform duration-200 hover:scale-105">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r p-1 flex items-center justify-center" style={{ backgroundImage: `linear-gradient(to right, ${item.color.split(' ')[0]}, ${item.color.split(' ')[1]})` }}>
-                      <span className="text-white text-lg font-bold">{item.icon}</span>
-                    </div>
-                    <h3 className="text-sm font-medium text-white mt-auto">{item.label}</h3>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Latest from the library */}
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Latest from the library</h2>
-              <button className="text-sm text-gray-400 hover:text-white">See all</button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {libraryItems.map((item) => (
-                <div key={item.id} className="bg-[#1C1C1E] rounded-xl p-4 flex items-start space-x-4">
-                  <div className={`${item.color} w-10 h-10 rounded-full flex items-center justify-center text-xl`}>
-                    {item.avatar}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium text-white">{item.name}</h3>
-                    <p className="text-sm text-gray-400 mt-1">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-          
-          </div>
-        )}
-      </main>
-    </div>
+          </section>
+        </div>
+        {/* <Player /> */}
+      </div>
+    </PlayerProvider>
   );
-}
+};
+
+export default Home;
