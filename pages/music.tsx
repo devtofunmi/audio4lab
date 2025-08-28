@@ -3,8 +3,9 @@ import Sidebar from '../components/Sidebar';
 import MusicCardSimple from '../components/MusicCardSimple';
 import { SearchNormal, Notification, Setting, ArrowRight2 } from 'iconsax-react';
 import { PlayerProvider } from '../contexts/PlayerContext';
+import { Track } from '../types/audio';
 
-const featuredTracks = [
+const featuredTracks: Track[] = [
   {
     id: "7",
     title: "Little Things",
@@ -82,7 +83,7 @@ const musicCategories = [
   { name: "Bass", color: "bg-gray-500" },
 ];
 
-const Music = () => {
+const Music: React.FC = () => {
   return (
     <PlayerProvider>
       <div className="flex bg-[#0d0d0d] min-h-screen text-white">

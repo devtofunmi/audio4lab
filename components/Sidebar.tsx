@@ -9,7 +9,13 @@ import {
   Setting,
 } from "iconsax-react";
 
-const Link = ({ href, className, children }) => {
+interface LinkProps {
+  href: string;
+  className: string;
+  children: React.ReactNode;
+}
+
+const Link: React.FC<LinkProps> = ({ href, className, children }) => {
   return (
     <a href={href} className={className}>
       {children}
@@ -17,7 +23,7 @@ const Link = ({ href, className, children }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
   const navItems = [
     { name: "Home", icon: Home2, href: "/dashboard" },
     { name: "Music", icon: MusicPlay, href: "/music" },
