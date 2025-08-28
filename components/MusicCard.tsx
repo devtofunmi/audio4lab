@@ -10,7 +10,12 @@ interface MusicCardProps {
   track?: Track;
 }
 
-const MusicCard: React.FC<MusicCardProps> = ({ image, title, artist, track }) => {
+const MusicCard: React.FC<MusicCardProps> = ({
+  image,
+  title,
+  artist,
+  track,
+}) => {
   // Use track data if provided, otherwise use individual props
   const cardImage = track?.coverArt || image || "/billie.jpg";
   const cardTitle = track?.title || title || "Unknown Title";
