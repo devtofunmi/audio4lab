@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import MusicCardSimple from "../components/MusicCardSimple";
 import { SearchNormal, Notification } from "iconsax-react";
 import { Track } from "../types/audio";
+import { usePlayer } from "../contexts/PlayerContext";
 
 const homeContent: Track[] = [
   {
@@ -128,6 +129,13 @@ const homeContent: Track[] = [
 ];
 
 const Home = () => {
+  const { setPlaylist } = usePlayer();
+
+  useEffect(() => {
+    // Set the playlist when the component mounts
+    setPlaylist(homeContent);
+  }, [setPlaylist]);
+
   return (
     <div className="flex bg-[#0d0d0d] min-h-screen text-white">
       <Sidebar />
