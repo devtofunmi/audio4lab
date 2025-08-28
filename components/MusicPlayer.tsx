@@ -38,8 +38,10 @@ const MusicPlayer = () => {
 
   // Mock waveform visualization
   const WaveformVisualization = () => {
-    const bars = Array.from({ length: 60 }, (_, i) => {
-      const height = Math.random() * 40 + 10;
+    // Use deterministic heights to avoid SSR/client mismatch
+    const heights = [25, 35, 20, 45, 30, 40, 15, 50, 25, 35, 20, 45, 30, 40, 15, 50, 25, 35, 20, 45, 30, 40, 15, 50, 25, 35, 20, 45, 30, 40, 15, 50, 25, 35, 20, 45, 30, 40, 15, 50, 25, 35, 20, 45, 30, 40, 15, 50, 25, 35, 20, 45, 30, 40, 15, 50, 25, 35, 20, 45];
+    
+    const bars = heights.map((height, i) => {
       const isActive =
         i < (playerState.currentTime / (playerState.duration || 100)) * 60;
       return (
