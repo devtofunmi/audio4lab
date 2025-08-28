@@ -14,42 +14,42 @@ const featuredTracks = [
     title: "Slow Latin Reggaeton",
     genre: "Reggaeton",
     mood: "Vibes",
-    image: "https://placehold.co/600x600/1e293b/cbd5e1?text=Track+1",
+    image: "/billie.jpg",
   },
   {
     id: 2,
     title: "Ambient Electronic",
     genre: "Electronic",
     mood: "Calm",
-    image: "https://placehold.co/600x600/334155/e2e8f0?text=Track+2",
+    image: "/billie.jpg",
   },
   {
     id: 3,
     title: "Cinematic Orchestra",
     genre: "Orchestral",
     mood: "Epic",
-    image: "https://placehold.co/600x600/475569/f1f5f9?text=Track+3",
+    image: "/billie.jpg",
   },
   {
     id: 4,
     title: "Upbeat Funk",
     genre: "Funk",
     mood: "Energetic",
-    image: "https://placehold.co/600x600/64748b/f8fafc?text=Track+4",
+    image: "/billie.jpg",
   },
   {
     id: 5,
     title: "Acoustic Folk",
     genre: "Folk",
     mood: "Mellow",
-    image: "https://placehold.co/600x600/94a3b8/f1f5f9?text=Track+5",
+    image: "/billie.jpg",
   },
   {
     id: 6,
     title: "Jazzy Hip Hop",
     genre: "Hip Hop",
     mood: "Smooth",
-    image: "https://placehold.co/600x600/6b7280/e5e7eb?text=Track+6",
+    image: "/billie.jpg",
   },
 ];
 
@@ -407,7 +407,12 @@ export default function Home() {
           >
             {featuredTracks.map((track) => (
               <SwiperSlide key={track.id}>
-                <Image src={track.image} alt={track.title} width={300} height={300} />
+                <Image
+                  src={track.image}
+                  alt={track.title}
+                  width={300}
+                  height={300}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
