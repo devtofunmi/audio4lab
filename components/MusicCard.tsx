@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { Play } from "iconsax-react";
 import { Track } from "@/types/audio";
@@ -7,10 +8,9 @@ interface MusicCardProps {
   title?: string;
   artist?: string;
   track?: Track;
-  showDownload?: boolean;
 }
 
-const MusicCard: React.FC<MusicCardProps> = ({ image, title, artist, track, showDownload }) => {
+const MusicCard: React.FC<MusicCardProps> = ({ image, title, artist, track }) => {
   // Use track data if provided, otherwise use individual props
   const cardImage = track?.coverArt || image || "/billie.jpg";
   const cardTitle = track?.title || title || "Unknown Title";
