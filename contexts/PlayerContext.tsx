@@ -5,10 +5,14 @@ import { Track, PlayerState } from '../types/audio';
 
 interface PlayerContextType {
   playerState: PlayerState;
+  playlist: Track[];
   setTrack: (track: Track) => void;
+  setPlaylist: (tracks: Track[]) => void;
   togglePlay: () => void;
   setVolume: (volume: number) => void;
   setCurrentTime: (time: number) => void;
+  nextTrack: () => void;
+  previousTrack: () => void;
   closePlayer: () => void;
 }
 
@@ -34,6 +38,8 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     duration: 0,
     volume: 1,
   });
+  
+  const [playlist, setPlaylist] = useState<Track[]>([]);
 
   const setTrack = (track: Track) => {
     // Convert duration string (e.g., "3:14") to seconds
@@ -47,6 +53,22 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
       currentTime: 0,
       duration: durationInSeconds,
     }));
+  };
+
+  const nextTrack = () => {
+    if (!playerState.currentTrack || playlist.length === 0) return;
+    
+    const currentIndex = playlist.findIndex(track => track.id === playerState.currentTrack?.id);
+    const nextIndex = (currentIndex + 1) % playlist.length;
+    setTrack(playlist[nextIndex]);
+  };
+
+  const previousTrack = () => {
+    if (!playerState.currentTrack || playlist.length === 0) return;
+    
+    const currentIndex = playlist.findIndex(track => track.id === playerState.currentTrack?.id);
+    const previousIndex = currentIndex === 0 ? playlist.length - 1 : currentIndex - 1;
+    setTrack(playlist[previousIndex]);
   };
 
   const togglePlay = () => {
@@ -111,10 +133,14 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
   const value = {
     playerState,
+    playlist,
     setTrack,
+    setPlaylist,
     togglePlay,
     setVolume,
     setCurrentTime,
+    nextTrack,
+    previousTrack,
     closePlayer,
   };
 
