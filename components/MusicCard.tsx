@@ -2,6 +2,7 @@
 import React from "react";
 import { Play } from "iconsax-react";
 import { Track } from "@/types/audio";
+import { usePlayer } from "@/contexts/PlayerContext";
 
 interface MusicCardProps {
   image?: string;
@@ -16,12 +17,35 @@ const MusicCard: React.FC<MusicCardProps> = ({
   artist,
   track,
 }) => {
+  const { setTrack } = usePlayer();
+
   // Use track data if provided, otherwise use individual props
   const cardImage = track?.coverArt || image || "/billie.jpg";
   const cardTitle = track?.title || title || "Unknown Title";
   const cardArtist = track?.genre || artist || "Unknown Artist";
+
+  const handlePlay = () => {
+    if (track) {
+      setTrack(track);
+    } else {
+      // Create a track object from individual props
+      const newTrack: Track = {
+        id: `${Date.now()}`,
+        title: cardTitle,
+        genre: cardArtist,
+        mood: "Unknown",
+        duration: "3:30",
+        url: "",
+        coverArt: cardImage,
+      };
+      setTrack(newTrack);
+    }
+  };
   return (
-    <div className="relative w-full rounded-xl overflow-hidden group cursor-pointer">
+    <div
+      className="relative w-full rounded-xl overflow-hidden group cursor-pointer"
+      onClick={handlePlay}
+    >
       <img
         src={cardImage}
         alt={cardTitle}
