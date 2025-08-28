@@ -682,7 +682,7 @@ export default function Home() {
             enhance their content
           </p>
           <Link
-            href="/generate"
+            href="/onboarding"
             className="inline-flex items-center px-8 py-4 bg-white text-black hover:bg-gray-200 text-lg font-semibold rounded-full transition-colors shadow-lg"
           >
             Start Creating Now
