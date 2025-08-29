@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import {
   SearchNormal,
-  Notification,
   HambergerMenu,
   CloseSquare,
   MusicPlay,
@@ -55,7 +54,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Main Content */}
       <div className="flex-1 lg:ml-64">
-        <header className="bg-[#171717] border-b border-gray-600 px-4 py-4">
+        <header className="fixed top-0 right-0 left-0 lg:left-64 bg-[#171717] border-b border-gray-600 px-4 py-4 z-40">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               {/* Mobile Menu Button */}
@@ -68,29 +67,22 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </button>
             </div>
 
-            <div className="flex items-center space-x-2 lg:space-x-4">
-              {/* Search Bar - Hidden on small screens */}
-              <div className="hidden sm:block relative">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="bg-[#171717] border-2 border-gray-600 rounded-full p-2 pl-10 pr-4 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-colors w-40 lg:w-80"
-                />
-                <SearchNormal
-                  size="18"
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                />
-              </div>
-
-              {/* Notification Button */}
-              <button className="text-white hover:text-gray-300 p-2">
-                <Notification size="20" color="#ffffff" />
-              </button>
+            {/* Search Bar */}
+            <div className="hidden sm:block relative w-40 lg:w-80">
+              <input
+                type="text"
+                placeholder="Search"
+                className="w-full bg-[#171717] border-2 border-gray-600 rounded-full p-2 pl-10 pr-4 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 transition-colors"
+              />
+              <SearchNormal
+                size="18"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              />
             </div>
           </div>
         </header>
 
-        <main className="p-4 lg:p-6">{children}</main>
+        <main className="pt-20 p-4 lg:p-6 mt-20">{children}</main>
       </div>
     </div>
   );
