@@ -32,6 +32,7 @@ const MusicCard: React.FC<MusicCardProps> = ({
       const newTrack: Track = {
         id: `${Date.now()}`,
         title: cardTitle,
+        artist: "",
         genre: cardArtist,
         mood: "Unknown",
         duration: "3:30",
