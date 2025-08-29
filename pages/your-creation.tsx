@@ -1,0 +1,99 @@
+import React from "react";
+import Layout from "../components/Layout";
+import MusicCardSimple from "../components/MusicCardSimple";
+import { Track } from "../types/audio";
+import { Add, MusicPlay } from "iconsax-react";
+
+const userCreations: Track[] = [
+  {
+    id: "uc1",
+    title: "My First Beat",
+    genre: "Hip-Hop",
+    mood: "Energetic",
+    duration: "2:45",
+    url: "/audio/my-first-beat.mp3",
+    coverArt: "/images/my-first-beat-cover.jpg",
+    bpm: 120,
+  },
+  {
+    id: "uc2",
+    title: "Chill Vibes",
+    genre: "Lo-Fi",
+    mood: "Relaxed",
+    duration: "3:20",
+    url: "/audio/chill-vibes.mp3",
+    coverArt: "/images/chill-vibes-cover.jpg",
+    bpm: 85,
+  },
+  {
+    id: "uc3",
+    title: "Electronic Dreams",
+    genre: "Electronic",
+    mood: "Futuristic",
+    duration: "4:15",
+    url: "/audio/electronic-dreams.mp3",
+    coverArt: "/images/electronic-dreams-cover.jpg",
+    bpm: 128,
+  },
+];
+
+const YourCreation = () => {
+  const handleNewCreation = () => {
+    // For now, we'll show an alert. In a real app, this would open a creation modal or navigate to a creation page
+    alert("New Creation feature coming soon! This will open the music creation studio.");
+  };
+
+  return (
+    <Layout title="Your Creation">
+      <div className="mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+          <div>
+            <h2 className="text-xl font-bold text-white mb-2">Your Tracks</h2>
+            <p className="text-gray-400">Create and manage your original compositions</p>
+          </div>
+          <button 
+            onClick={handleNewCreation}
+            className="flex items-center justify-center space-x-2 bg-white text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors w-full sm:w-auto"
+          >
+            <Add size="20" />
+            <span>New Creation</span>
+          </button>
+        </div>
+      </div>
+
+      {userCreations.length > 0 ? (
+        <section>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-6">
+            {userCreations.map((track) => (
+              <MusicCardSimple
+                key={track.id}
+                track={track}
+                showDownload={true}
+                showPlayButton={true}
+              />
+            ))}
+          </div>
+        </section>
+      ) : (
+        <div className="flex flex-col items-center justify-center py-16 text-center">
+          <div className="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mb-6">
+            <MusicPlay size="32" color="#9ca3af" />
+          </div>
+          <h3 className="text-xl font-semibold text-white mb-2">No creations yet</h3>
+          <p className="text-gray-400 mb-6 max-w-md">
+            Start creating your own music and sound effects. Your compositions will appear here.
+          </p>
+          <button 
+            onClick={handleNewCreation}
+            className="flex items-center space-x-2 bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+          >
+            <Add size="20" />
+            <span>Create Your First Track</span>
+          </button>
+        </div>
+      )}
+    </Layout>
+  );
+};
+
+export default YourCreation;
