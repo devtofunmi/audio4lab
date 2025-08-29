@@ -8,6 +8,7 @@ const favoritesTracks: Track[] = [
   {
     id: "fav1",
     title: "bad guy",
+    artist: "Billie Eilish",
     genre: "Pop",
     mood: "Energetic",
     duration: "3:14",
@@ -18,6 +19,7 @@ const favoritesTracks: Track[] = [
   {
     id: "fav2",
     title: "ocean eyes",
+    artist: "Billie Eilish",
     genre: "Indie Pop",
     mood: "Dreamy",
     duration: "3:20",
@@ -28,6 +30,7 @@ const favoritesTracks: Track[] = [
   {
     id: "fav3",
     title: "What Was I Made For?",
+    artist: "Billie Eilish",
     genre: "Ballad",
     mood: "Introspective",
     duration: "3:42",
@@ -38,6 +41,7 @@ const favoritesTracks: Track[] = [
   {
     id: "fav4",
     title: "lovely",
+    artist: "Billie Eilish",
     genre: "Indie Pop",
     mood: "Emotional",
     duration: "3:20",
