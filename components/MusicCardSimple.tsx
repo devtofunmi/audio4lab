@@ -41,7 +41,7 @@ const MusicCardSimple: React.FC<MusicCardProps> = ({
 
   return (
     <div
-      className="bg-[#171717] rounded-md  hover:border-gray-500 transition-all duration-300 group hover:scale-105"
+      className=" rounded-md  hover:border-gray-500 transition-all duration-300 group hover:scale-105"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -68,7 +68,7 @@ const MusicCardSimple: React.FC<MusicCardProps> = ({
           {showPlayButton && (
             <button
               onClick={handlePlayClick}
-              className="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
+              className="w-12 h-12 cursor-pointer rounded-full bg-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
             >
               {isPlaying ? (
                 <Pause size="20" color="#000" variant="Bold" />
@@ -92,6 +92,7 @@ const MusicCardSimple: React.FC<MusicCardProps> = ({
       {/* Track Info */}
       <div className="space-y-2 p-1">
         <h3 className="text-white font-semibold text-md truncate">{track.title}</h3>
+        <h3 className="text-white font-semibold text-sm truncate">{track.artist}</h3>
               
       </div>
     </div>

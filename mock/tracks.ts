@@ -4,6 +4,7 @@ export const mockTracks: Track[] = [
   {
     id: "1",
     title: "Chill LoFi Beats",
+    artist: "Billie Eillish",
     genre: "LoFi",
     mood: "Chill",
     duration: "2:30",
@@ -15,6 +16,7 @@ export const mockTracks: Track[] = [
   {
     id: "2",
     title: "Cinematic Adventure",
+    artist: "Billie Eillish",
     genre: "Cinematic",
     mood: "Epic",
     duration: "3:45",
@@ -26,6 +28,7 @@ export const mockTracks: Track[] = [
   {
     id: "3",
     title: "Electronic Vibes",
+    artist: "Billie Eillish",
     genre: "Electronic",
     mood: "Energetic",
     duration: "4:12",
@@ -37,6 +40,7 @@ export const mockTracks: Track[] = [
   {
     id: "4",
     title: "Jazz Night",
+    artist: "Billie Eillish",
     genre: "Jazz",
     mood: "Melancholic",
     duration: "3:20",
@@ -48,6 +52,7 @@ export const mockTracks: Track[] = [
   {
     id: "5",
     title: "Rock Anthem",
+    artist: "Billie Eillish",
     genre: "Rock",
     mood: "Intense",
     duration: "4:50",
@@ -59,6 +64,7 @@ export const mockTracks: Track[] = [
   {
     id: "6",
     title: "Ambient Dreams",
+    artist: "Billie Eillish",
     genre: "Ambient",
     mood: "Peaceful",
     duration: "5:15",

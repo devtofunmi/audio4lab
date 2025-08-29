@@ -82,7 +82,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </header>
 
-        <main className="pt-20 p-4 lg:p-6 mt-20">{children}</main>
+        <main className="pt-20 p-4 lg:p-6 mt-10 md:mt-20">{children}</main>
       </div>
     </div>
   );
