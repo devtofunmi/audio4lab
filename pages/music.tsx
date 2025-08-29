@@ -8,6 +8,7 @@ const featuredTracks: Track[] = [
   {
     id: "7",
     title: "Little Things",
+    artist: "Billie Eilish",
     genre: "Electronic",
     mood: "Chill",
     duration: "3:24",
@@ -18,6 +19,7 @@ const featuredTracks: Track[] = [
   {
     id: "8",
     title: "Curious George",
+    artist: "Billie Eilish",
     genre: "Hip Hop",
     mood: "Energetic",
     duration: "4:12",
@@ -30,6 +32,7 @@ const featuredTracks: Track[] = [
     title: "Sexy Smile",
     genre: "Electronic",
     mood: "Uplifting",
+    artist: "Billie Eilish",
     duration: "3:45",
     url: "/audio/sexy-smile.mp3",
     coverArt: "/images/album9.jpg",
@@ -40,6 +43,7 @@ const featuredTracks: Track[] = [
     title: "DABOOMJIGGLE",
     genre: "Electronic",
     mood: "Energetic",
+    artist: "Billie Eilish",
     duration: "2:58",
     url: "/audio/daboomjiggle.mp3",
     coverArt: "/images/album10.jpg",
@@ -49,6 +53,7 @@ const featuredTracks: Track[] = [
     id: "11",
     title: "Laurel Leaves",
     genre: "Ambient",
+    artist: "Billie Eilish",
     mood: "Peaceful",
     duration: "5:33",
     url: "/audio/laurel-leaves.mp3",
@@ -58,6 +63,7 @@ const featuredTracks: Track[] = [
   {
     id: "12",
     title: "Roar",
+    artist: "Billie Eilish",
     genre: "Rock",
     mood: "Intense",
     duration: "3:21",
