@@ -30,6 +30,7 @@ const soundEffects: Track[] = [
     id: "se3",
     title: "Ocean Waves",
     genre: "Nature",
+    artist: "Billie Eilish",
     mood: "Peaceful",
     duration: "0:12",
     url: "/audio/ocean-waves.mp3",
