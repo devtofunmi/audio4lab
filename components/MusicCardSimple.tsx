@@ -41,7 +41,7 @@ const MusicCardSimple: React.FC<MusicCardProps> = ({
 
   return (
     <div
-      className=" rounded-2xl  hover:border-gray-500 transition-all duration-300 group hover:scale-105"
+      className=" rounded-2xl max-w-[200px]  hover:border-gray-500 transition-all duration-300 group hover:scale-105"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

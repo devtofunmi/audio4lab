@@ -157,7 +157,7 @@ const Home = () => {
         <h2 className="text-lg font-bold mb-6 mt-5 text-white">
         Explore music to match your project
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-6">
+        <div className="flex flex-wrap gap-4 lg:gap-6 justify-center md:justify-start">
           {homeContent.map((track) => (
             <MusicCardSimple
               key={track.id}
