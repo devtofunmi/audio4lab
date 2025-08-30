@@ -54,7 +54,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Main Content */}
       <div className="flex-1 lg:ml-64">
-        <header className="fixed top-0 right-0 left-0 lg:left-64 bg-[#171717] border-b border-gray-600 px-4 py-4 z-40">
+        <header className="fixed top-0 right-0 left-0 lg:left-64 bg-[#171717]  px-4 py-6 z-40">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               {/* Mobile Menu Button */}
