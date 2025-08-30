@@ -33,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobile = false }) => {
   };
 
   return (
-    <aside className={`${isMobile ? 'w-full bg-transparent' : 'w-full bg-[#171717] border-r border-gray-600'} p-6 h-full overflow-y-auto flex flex-col`}>
+    <aside className={`${isMobile ? 'w-full bg-transparent' : 'w-full bg-[#171717] '} p-6 h-full overflow-y-auto flex flex-col`}>
       {!isMobile && (
         <div className="flex items-center space-x-3 mb-8 pb-6 border-b border-gray-600">
           <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobile = false }) => {
               <li key={item.name}>
                 <Link
                   href={item.href}
-                  className={`flex items-center space-x-3 px-3 py-3 rounded-lg transition-all duration-200 group ${
+                  className={`flex items-center space-x-3 px-3 py-3 rounded-lg  ${
                     isActive 
                       ? 'bg-white/10 text-white' 
                       : 'text-gray-400 hover:bg-gray-800/50'
@@ -72,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobile = false }) => {
         <div className="mb-4">
           <Link
             href="/settings"
-            className={`flex items-center space-x-3 px-3 py-3 rounded-lg transition-all duration-200 group ${
+            className={`flex items-center space-x-3 px-3 py-3 rounded-lg ${
               router.pathname === '/settings' 
                 ? 'bg-white/10 text-white' 
                 : 'text-gray-400 hover:bg-gray-800/50'
