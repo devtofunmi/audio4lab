@@ -1,63 +1,65 @@
-"use client";
+'use client';
 
-import { SetStateAction, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination } from "swiper/modules";
-import type { Swiper as SwiperType } from "swiper";
-import Navbar from "@/components/Navbar";
-import Link from "next/link";
-import Image from "next/image";
+import { SetStateAction, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Pagination } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
+import Navbar from '@/components/Navbar';
+import Link from 'next/link';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+
 // The original mock data is included here for a self-contained example.
 const featuredTracks = [
   {
     id: 1,
-    title: "Slow Latin Reggaeton",
-    genre: "Reggaeton",
-    mood: "Vibes",
-    image: "/billie.jpg",
+    title: 'Slow Latin Reggaeton',
+    genre: 'Reggaeton',
+    mood: 'Vibes',
+    image: '/billie.jpg',
   },
   {
     id: 2,
-    title: "Ambient Electronic",
-    genre: "Electronic",
-    mood: "Calm",
-    image: "/billie.jpg",
+    title: 'Ambient Electronic',
+    genre: 'Electronic',
+    mood: 'Calm',
+    image: '/billie.jpg',
   },
   {
     id: 3,
-    title: "Cinematic Orchestra",
-    genre: "Orchestral",
-    mood: "Epic",
-    image: "/billie.jpg",
+    title: 'Cinematic Orchestra',
+    genre: 'Orchestral',
+    mood: 'Epic',
+    image: '/billie.jpg',
   },
   {
     id: 4,
-    title: "Upbeat Funk",
-    genre: "Funk",
-    mood: "Energetic",
-    image: "/billie.jpg",
+    title: 'Upbeat Funk',
+    genre: 'Funk',
+    mood: 'Energetic',
+    image: '/billie.jpg',
   },
   {
     id: 5,
-    title: "Acoustic Folk",
-    genre: "Folk",
-    mood: "Mellow",
-    image: "/billie.jpg",
+    title: 'Acoustic Folk',
+    genre: 'Folk',
+    mood: 'Mellow',
+    image: '/billie.jpg',
   },
   {
     id: 6,
-    title: "Jazzy Hip Hop",
-    genre: "Hip Hop",
-    mood: "Smooth",
-    image: "/billie.jpg",
+    title: 'Jazzy Hip Hop',
+    genre: 'Hip Hop',
+    mood: 'Smooth',
+    image: '/billie.jpg',
   },
 ];
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -84,45 +86,76 @@ export default function Home() {
     }
   };
 
+
+
+
+
+  // Define variants for the feature cards
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+    hover: { scale: 1.03, transition: { duration: 0.2 } },
+  };
+
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative h-screen  flex justify-center items-center flex-col overflow-hidden">
+      <section className="relative h-screen flex justify-center items-center flex-col overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-center items-center flex-col text-center"
+          >
+            <motion.h1
+              
+              className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
+            >
               Generate Royalty-Free
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
+              <motion.span
+                
+                className="block text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300"
+              >
                 Music for Your Videos
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+              </motion.span>
+            </motion.h1>
+            <motion.p
+              
+              className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
+            >
               Create custom, AI-powered music tracks in seconds. Perfect for
               content creators, filmmakers, and musicians.
-            </p>
-            <Link
-              href="/generate"
-              className="inline-flex items-center px-8 py-4 bg-white hover:bg-gray-200 text-black text-lg font-semibold rounded-full transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-white/25"
-            >
-              Start Creating
-              <svg
-                className="ml-2 w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </Link>
-          </div>
+            </motion.p>
+            <motion.div >
+              <Link href="/onboarding" passHref>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex cursor-pointer items-center px-8 py-4 bg-white hover:bg-gray-200 text-black text-lg font-semibold rounded-full transition-all duration-200 transform shadow-lg hover:shadow-white/25"
+                >
+                  Start Creating
+                  <svg
+                    className="ml-2 w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </motion.button>
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -130,7 +163,13 @@ export default function Home() {
       <section className="py-20 bg-black text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
             <p className="text-sm text-gray-400 mb-4 tracking-wider">
               For CREATORS
             </p>
@@ -138,12 +177,19 @@ export default function Home() {
               Create professional music and sound effects with our AI-powered
               tools
             </h2>
-          </div>
+          </motion.div>
 
           {/* Main Features Grid */}
           <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-8 px-2 sm:px-0">
             {/* AI Music Generation */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-8 lg:p-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              variants={cardVariants}
+              viewport={{ once: false, amount: 0.3 }}
+              className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-8 lg:p-8"
+            >
               <h3 className="text-2xl font-bold mb-4">AI Music Generation</h3>
               <p className="text-gray-300 mb-8 leading-relaxed">
                 Create original music tracks in any genre or style. From
@@ -191,7 +237,11 @@ export default function Home() {
               {/* Music Control Interface */}
               <div className="bg-black/50 rounded-lg p-4 border border-gray-700">
                 <div className="flex items-center space-x-4">
-                  <button className="bg-white text-black px-4 py-2 rounded-full flex items-center space-x-2">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="bg-white text-black px-4 py-2 rounded-full flex items-center space-x-2"
+                  >
                     <svg
                       className="w-4 h-4"
                       fill="currentColor"
@@ -199,7 +249,7 @@ export default function Home() {
                     >
                       <path d="M8 5v14l11-7z" />
                     </svg>
-                  </button>
+                  </motion.button>
                   <div className="flex space-x-2">
                     <span className="bg-gray-700 px-3 py-1 rounded text-sm">
                       GENERATE
@@ -213,10 +263,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Sample Library */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              variants={cardVariants}
+              viewport={{ once: false, amount: 0.3 }}
+              className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8"
+            >
               <h3 className="text-2xl font-bold mb-4">
                 Premium Sample Library
               </h3>
@@ -244,22 +301,35 @@ export default function Home() {
                   <span className="text-blue-400 text-sm">
                     Sample Browser 🎵
                   </span>
-                  <button className="text-white text-xs bg-gray-700 px-2 py-1 rounded">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="text-white text-xs bg-gray-700 px-2 py-1 rounded"
+                  >
                     DOWNLOAD
-                  </button>
+                  </motion.button>
                 </div>
                 <div className="space-y-2 text-sm">
-                  <div className="text-gray-400">Browse by genre, BPM, key</div>
+                  <div className="text-gray-400">
+                    Browse by genre, BPM, key
+                  </div>
                   <div className="text-gray-500">Preview before download</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Second Row */}
-          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-0">
+          <div className="flex flex-col justify-center gap-4 max-w-[600px] mt-5 mx-auto w-full">
             {/* Sound Effects Generator */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              variants={cardVariants}
+              viewport={{ once: false, amount: 0.3 }}
+              className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8"
+            >
               <h3 className="text-2xl font-bold mb-4">
                 Sound Effects Generator
               </h3>
@@ -294,51 +364,16 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-
-              <button className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-colors">
-                CREATE SOUNDS
-              </button>
-            </div>
-
-            {/* Music Editing Tools */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8">
-              <h3 className="text-2xl font-bold mb-4">Music Editing Suite</h3>
-              <p className="text-gray-300 mb-8 leading-relaxed">
-                Edit, mix, and master your tracks with professional-grade tools.
-                Adjust tempo, pitch, add effects, and create seamless loops for
-                your projects.
-              </p>
-
-              {/* Features List */}
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start">
-                  <div className="w-2 h-2 bg-white rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <div>
-                    <span className="text-white font-semibold">
-                      Stem Separation
-                    </span>
-                    <p className="text-gray-400 text-sm">
-                      Isolate vocals, drums, bass, and instruments
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-2 h-2 bg-white rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <div>
-                    <span className="text-white font-semibold">
-                      Audio Effects
-                    </span>
-                    <p className="text-gray-400 text-sm">
-                      Reverb, delay, EQ, compression, and more
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <button className="bg-black border border-gray-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
-                OPEN EDITOR
-              </button>
-            </div>
+              <Link href="/onboarding" passHref>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-white cursor-pointer text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-colors"
+                >
+                  CREATE SOUNDS
+                </motion.button>
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -387,10 +422,10 @@ export default function Home() {
         {/* Main container for the Swiper and controls */}
         <div className="w-full flex flex-col items-center">
           <Swiper
-            effect={"coverflow"}
+            effect={'coverflow'}
             grabCursor={true}
             centeredSlides={true}
-            slidesPerView={"auto"}
+            slidesPerView={'auto'}
             initialSlide={2}
             coverflowEffect={{
               rotate: 50,
@@ -421,9 +456,11 @@ export default function Home() {
           <div className="mt-12 flex flex-col items-center text-center">
             {/* Controls */}
             <div className="flex items-center space-x-6">
-              <button
+              <motion.button
                 onClick={handlePrevSlide}
                 className="text-gray-400 cursor-pointer hover:text-white transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -437,42 +474,56 @@ export default function Home() {
                     clipRule="evenodd"
                   />
                 </svg>
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 onClick={handlePlayPause}
-                className="bg-white cursor-pointer text-black p-4 rounded-full shadow-lg hover:scale-105 transition-transform"
+                className="bg-white cursor-pointer text-black p-4 rounded-full shadow-lg transition-transform"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
-                {isPlaying ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-8 h-8"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0A.75.75 0 0 1 15 4.5h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-8 h-8"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M4.5 5.653c0-1.442 1.557-2.356 2.803-1.628l11.97 7.151c1.246.745 1.246 2.564 0 3.309l-11.97 7.151C6.057 21.954 4.5 21.04 4.5 19.59V5.653Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                )}
-              </button>
-              <button
+                <AnimatePresence mode="wait">
+                  {isPlaying ? (
+                    <motion.svg
+                      key="pause"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-8 h-8"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0A.75.75 0 0 1 15 4.5h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z"
+                        clipRule="evenodd"
+                      />
+                    </motion.svg>
+                  ) : (
+                    <motion.svg
+                      key="play"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-8 h-8"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4.5 5.653c0-1.442 1.557-2.356 2.803-1.628l11.97 7.151c1.246.745 1.246 2.564 0 3.309l-11.97 7.151C6.057 21.954 4.5 21.04 4.5 19.59V5.653Z"
+                        clipRule="evenodd"
+                      />
+                    </motion.svg>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+              <motion.button
                 onClick={handleNextSlide}
                 className="text-gray-400 cursor-pointer hover:text-white transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -486,18 +537,27 @@ export default function Home() {
                     clipRule="evenodd"
                   />
                 </svg>
-              </button>
+              </motion.button>
             </div>
             {/* Track description */}
-            <div className="mt-4 text-center">
-              <p className="text-lg font-semibold text-white">
-                {featuredTracks[currentTrack].title}
-              </p>
-              <p className="text-sm text-gray-400">
-                {featuredTracks[currentTrack].genre} with{" "}
-                {featuredTracks[currentTrack].mood} vibes
-              </p>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentTrack}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="mt-4 text-center"
+              >
+                <p className="text-lg font-semibold text-white">
+                  {featuredTracks[currentTrack].title}
+                </p>
+                <p className="text-sm text-gray-400">
+                  {featuredTracks[currentTrack].genre} with{' '}
+                  {featuredTracks[currentTrack].mood} vibes
+                </p>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </section>
@@ -505,18 +565,31 @@ export default function Home() {
       {/* Testimonials Section */}
       <section className="py-20 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
             <p className="text-sm text-gray-400 mb-4 tracking-wider">
               TESTIMONIALS
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 max-w-4xl">
               Trusted by creators worldwide
             </h2>
-          </div>
+          </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Large Featured Testimonial */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              variants={cardVariants}
+              viewport={{ once: false, amount: 0.3 }}
+              className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8"
+            >
               <div className="flex items-start mb-6">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                   <span className="text-white font-bold text-xl">S</span>
@@ -559,11 +632,18 @@ export default function Home() {
                 </svg>
                 Verified Creator • 2.3M Subscribers
               </div>
-            </div>
+            </motion.div>
 
             {/* Smaller Testimonials Grid */}
             <div className="space-y-6">
-              <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-6">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                whileHover="hover"
+                variants={cardVariants}
+                viewport={{ once: false, amount: 0.3 }}
+                className="bg-gray-900/50 border border-gray-800 rounded-2xl p-6"
+              >
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mr-3">
                     <span className="text-white font-bold">M</span>
@@ -588,9 +668,16 @@ export default function Home() {
                   &quot;The quality is incredible. It&apos;s like having a
                   professional composer on demand for every project.&quot;
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-6">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                whileHover="hover"
+                variants={cardVariants}
+                viewport={{ once: false, amount: 0.3 }}
+                className="bg-gray-900/50 border border-gray-800 rounded-2xl p-6"
+              >
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-3">
                     <span className="text-white font-bold">A</span>
@@ -615,9 +702,16 @@ export default function Home() {
                   &quot;Perfect for podcast intros and outros. The mood
                   selection really captures the vibe I&apos;m going for.&quot;
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-6">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                whileHover="hover"
+                variants={cardVariants}
+                viewport={{ once: false, amount: 0.3 }}
+                className="bg-gray-900/50 border border-gray-800 rounded-2xl p-6"
+              >
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center mr-3">
                     <span className="text-white font-bold">L</span>
@@ -642,43 +736,73 @@ export default function Home() {
                   &quot;Game-changer for my social media content. The
                   text-to-speech feature saves me hours of recording.&quot;
                 </p>
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Stats Section */}
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-center"
+            >
               <div className="text-3xl md:text-4xl font-bold text-white mb-2">
                 50K+
               </div>
               <div className="text-gray-400">Active Creators</div>
-            </div>
-            <div className="text-center">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-center"
+            >
               <div className="text-3xl md:text-4xl font-bold text-white mb-2">
                 1M+
               </div>
               <div className="text-gray-400">Tracks Generated</div>
-            </div>
-            <div className="text-center">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="text-center"
+            >
               <div className="text-3xl md:text-4xl font-bold text-white mb-2">
                 4.9/5
               </div>
               <div className="text-gray-400">Average Rating</div>
-            </div>
-            <div className="text-center">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="text-center"
+            >
               <div className="text-3xl md:text-4xl font-bold text-white mb-2">
                 99.9%
               </div>
               <div className="text-gray-400">Uptime</div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-gray-900 to-black">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8"
+        >
           <h2 className="text-4xl font-bold text-white mb-6">
             Ready to Create Amazing Music?
           </h2>
@@ -686,26 +810,29 @@ export default function Home() {
             Join thousands of creators who are already using Audio4Lab to
             enhance their content
           </p>
-          <Link
-            href="/onboarding"
-            className="inline-flex items-center px-8 py-4 bg-white text-black hover:bg-gray-200 text-lg font-semibold rounded-full transition-colors shadow-lg"
-          >
-            Start Creating Now
-            <svg
-              className="ml-2 w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <Link href="/onboarding" passHref>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center px-8 py-4 bg-white text-black hover:bg-gray-200 text-lg font-semibold rounded-full transition-colors shadow-lg"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 7l5 5m0 0l-5 5m5-5H6"
-              />
-            </svg>
+              Start Creating Now
+              <svg
+                className="ml-2 w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </motion.button>
           </Link>
-        </div>
+        </motion.div>
       </section>
 
       {/* Footer */}
