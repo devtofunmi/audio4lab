@@ -41,13 +41,13 @@ const MusicCardSimple: React.FC<MusicCardProps> = ({
 
   return (
     <div
-      className=" rounded-md  hover:border-gray-500 transition-all duration-300 group hover:scale-105"
+      className=" rounded-2xl  hover:border-gray-500 transition-all duration-300 group hover:scale-105"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Cover Art */}
       <div className="relative mb-4">
-        <div className="w-full h-40 bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center overflow-hidden">
+        <div className="w-full h-40 bg-gradient-to-br from-gray-700 to-gray-900 rounded-2xl flex items-center justify-center overflow-hidden">
           {track.coverArt ? (
             <Image 
               src='/billie.jpg'
