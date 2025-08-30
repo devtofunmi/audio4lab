@@ -205,13 +205,13 @@ export function MusicInterestsStep({
       <div className="flex justify-center space-x-4">
         <button
           onClick={onSkip}
-          className="px-6 py-2 text-gray-400 hover:text-white cursor-pointer transition-colors"
+          className="px-6 py-2 text-gray-400 hover:text-white font-semibold cursor-pointer transition-colors"
         >
           Skip
         </button>
         <button
           onClick={onNext}
-          className="px-8 py-3 bg-white text-black rounded-lg hover:bg-gray-200 cursor-pointer transition-all duration-200 hover:scale-105"
+          className="px-8 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 cursor-pointer transition-all duration-200 hover:scale-105"
         >
           Continue
         </button>
@@ -265,13 +265,13 @@ export function RoleStep({
       <div className="flex justify-center space-x-4">
         <button
           onClick={onSkip}
-          className="px-6 py-2 text-gray-400 hover:text-white cursor-pointer transition-colors"
+          className="px-6 py-2 text-gray-400 hover:text-white font-semibold cursor-pointer transition-colors"
         >
           Skip
         </button>
         <button
           onClick={onNext}
-          className="px-8 py-3 bg-white text-black rounded-lg hover:bg-gray-200 cursor-pointer transition-all duration-200 hover:scale-105"
+          className="px-8 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 cursor-pointer transition-all duration-200 hover:scale-105"
         >
           Continue
         </button>
@@ -371,7 +371,7 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
 
       <button
         onClick={onNext}
-        className="w-full mt-8 px-8 py-3 bg-white text-black rounded-lg hover:bg-gray-200 font-semibold cursor-pointer transition-all duration-200 hover:scale-105"
+        className="w-full mt-8 px-8 py-3 bg-white text-black rounded-lg  font-semibold cursor-pointer"
       >
         Get Started
       </button>
