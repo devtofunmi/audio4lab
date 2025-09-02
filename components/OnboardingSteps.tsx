@@ -310,7 +310,7 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
   };
 
   return (
-    <div className="text-center max-w-md mx-auto">
+    <div className="text-center max-w-2xl mx-auto">
       <h1 className="text-4xl font-bold mb-8 text-white">
         Welcome to Audio4Lab
       </h1>
@@ -336,7 +336,7 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
           <label className="block text-left text-sm font-medium mb-2 text-white">
             What&apos;s your date of birth? (Optional)
           </label>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3 mb-4">
             <input
               type="text"
               value={personalInfo.dateOfBirth?.day || ""}
@@ -345,18 +345,6 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
               placeholder="DD"
               maxLength={2}
             />
-            <select
-              value={personalInfo.dateOfBirth?.month || ""}
-              onChange={(e) => updateDateOfBirth("month", e.target.value)}
-              className="px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
-            >
-              <option value="">Month</option>
-              {months.map((month, index) => (
-                <option key={month} value={index + 1}>
-                  {month}
-                </option>
-              ))}
-            </select>
             <input
               type="text"
               value={personalInfo.dateOfBirth?.year || ""}
@@ -366,12 +354,27 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
               maxLength={4}
             />
           </div>
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
+            {months.map((month, index) => (
+              <button
+                key={month}
+                onClick={() => updateDateOfBirth("month", String(index + 1))}
+                className={`px-4 py-3 rounded-lg transition-colors text-sm font-medium ${
+                  String(index + 1) === personalInfo.dateOfBirth?.month
+                    ? "bg-white text-black"
+                    : "bg-[#171717] border-2 border-gray-600 hover:bg-gray-700 text-white"
+                }`}
+              >
+                {month}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       <button
         onClick={onNext}
-        className="w-full mt-8 px-8 py-3 bg-white text-black rounded-lg  font-semibold cursor-pointer"
+        className="w-full mt-8 px-8 py-3 bg-white text-black rounded-lg font-semibold cursor-pointer"
       >
         Get Started
       </button>
