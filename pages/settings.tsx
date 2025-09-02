@@ -189,7 +189,7 @@ const Settings = () => {
         </section>
 
         {/* Appearance */}
-        <section className="mb-8">
+        {/* <section className="mb-8">
           <div className="bg-[#171717] rounded-lg border border-gray-600 p-6">
             <div className="flex items-center space-x-4 mb-6">
               {settings.darkMode ? (
@@ -215,11 +215,11 @@ const Settings = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Save Button */}
-        <div className="flex justify-end">
-          <button className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+        <div className="flex justify-center">
+          <button className="bg-white  cursor-pointer hover:bg-gray-100 text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors">
             Save Changes
           </button>
         </div>
