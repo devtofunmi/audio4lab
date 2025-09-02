@@ -33,7 +33,7 @@ const NewCreationForm: React.FC<NewCreationFormProps> = ({ onSubmit, onBack }) =
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
-      <button onClick={onBack} className="text-gray-400 hover:text-white transition-colors flex items-center space-x-2 mb-6">
+      <button onClick={onBack} className="cursor-pointer text-gray-400 hover:text-white transition-colors flex items-center space-x-2 mb-6">
         <ArrowLeft size="24" />
         <span className="text-base font-semibold">Back to Your Creations</span>
       </button>
@@ -49,14 +49,14 @@ const NewCreationForm: React.FC<NewCreationFormProps> = ({ onSubmit, onBack }) =
           <div className="space-y-6">
             <button
               onClick={() => setCreationType('upload')}
-              className="w-full flex flex-col items-center justify-center space-y-3 p-8 rounded-xl bg-gray-800 text-white border border-gray-700 hover:bg-gray-700 transition-colors duration-200 ease-in-out text-xl font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+              className="cursor-pointer w-full flex flex-col items-center justify-center space-y-3 p-8 rounded-xl bg-[#171717] text-white border border-gray-700 hover:bg-[#2f2f2f] transition-colors duration-200 ease-in-out text-xl font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
             > 
               <DocumentUpload size="40" className="mx-auto" />
               <span>Upload an Existing Track</span>
             </button>
             <button
               onClick={() => setCreationType('newProject')}
-              className="w-full flex flex-col items-center justify-center space-y-3 p-8 rounded-xl bg-gray-800 text-white border border-gray-700 hover:bg-gray-700 transition-colors duration-200 ease-in-out text-xl font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+              className="cursor-pointer w-full flex flex-col items-center justify-center space-y-3 p-8 rounded-xl bg-[#171717] text-white border border-gray-700 hover:bg-[#2f2f2f] transition-colors duration-200 ease-in-out text-xl font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
             >
               <MusicPlay size="40" />
               <span>Start a New Project</span>
@@ -70,10 +70,10 @@ const NewCreationForm: React.FC<NewCreationFormProps> = ({ onSubmit, onBack }) =
               <label htmlFor="file" className="block text-gray-300 text-base font-medium mb-2">Select Audio File</label>
               <label
                 htmlFor="file"
-                className="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 flex items-center justify-between cursor-pointer hover:bg-gray-800 transition-colors duration-200 ease-in-out focus-within:ring-2 focus-within:ring-white focus-within:border-white"
+                className="w-full p-4 rounded-xl bg-transparent text-white border border-gray-700 flex items-center justify-between cursor-pointer hover:bg-[#2f2f2f] transition-colors duration-200 ease-in-out focus-within:ring-2 focus-within:ring-white focus-within:border-white"
               >
                 <span className="text-gray-400">{file ? file.name : "No file chosen"}</span>
-                <span className="px-4 py-2 rounded-full border-0 text-sm font-semibold bg-white text-black hover:bg-gray-200 transition-colors duration-200 ease-in-out">Browse</span>
+                <span className="px-4 py-2 rounded-full border-0 text-sm font-semibold bg-[#171717] text-white hover:bg-[#2f2f2f] transition-colors duration-200 ease-in-out">Browse</span>
               </label>
               <input
                 type="file"
@@ -88,13 +88,13 @@ const NewCreationForm: React.FC<NewCreationFormProps> = ({ onSubmit, onBack }) =
               <button
                 type="button"
                 onClick={() => setCreationType('initial')}
-                className="px-6 py-3 rounded-xl font-semibold text-gray-300 bg-gray-800 hover:bg-gray-700 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                className="cursor-pointer px-6 py-3 rounded-xl font-semibold text-gray-300 bg-[#171717] hover:bg-[#2f2f2f] transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
               >
                 Back
               </button>
               <button
                 type="submit"
-                className="px-6 py-3 rounded-xl font-semibold bg-white text-black hover:bg-gray-200 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                className="cursor-pointer px-6 py-3 rounded-xl font-semibold bg-[#171717] text-white hover:bg-[#2f2f2f] transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
               >
                 Upload
               </button>
@@ -109,7 +109,7 @@ const NewCreationForm: React.FC<NewCreationFormProps> = ({ onSubmit, onBack }) =
               <input
                 type="text"
                 id="title"
-                className="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:ring-2 focus:ring-white focus:border-white outline-none"
+                className="w-full p-4 rounded-xl bg-transparent text-white border border-gray-700 focus:ring-2 focus:ring-white focus:border-white outline-none"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g., My New Song, Soundscape for Game"
@@ -122,7 +122,7 @@ const NewCreationForm: React.FC<NewCreationFormProps> = ({ onSubmit, onBack }) =
               <input
                 type="text"
                 id="genre"
-                className="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:ring-2 focus:ring-white focus:border-white outline-none"
+                className="w-full p-4 rounded-xl bg-transparent text-white border border-gray-700 focus:ring-2 focus:ring-white focus:border-white outline-none"
                 value={genre}
                 onChange={(e) => setGenre(e.target.value)}
                 placeholder="e.g., Electronic, Orchestral, Ambient"
@@ -135,7 +135,7 @@ const NewCreationForm: React.FC<NewCreationFormProps> = ({ onSubmit, onBack }) =
               <input
                 type="text"
                 id="mood"
-                className="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:ring-2 focus:ring-white focus:border-white outline-none"
+                className="w-full p-4 rounded-xl bg-transparent text-white border border-gray-700 focus:ring-2 focus:ring-white focus:border-white outline-none"
                 value={mood}
                 onChange={(e) => setMood(e.target.value)}
                 placeholder="e.g., Uplifting, Mysterious, Relaxing"
@@ -147,15 +147,15 @@ const NewCreationForm: React.FC<NewCreationFormProps> = ({ onSubmit, onBack }) =
               <button
                 type="button"
                 onClick={() => setCreationType('initial')}
-                className="px-6 py-3 rounded-xl font-semibold text-gray-300 bg-gray-800 hover:bg-gray-700 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                className="cursor-pointer px-6 py-3 rounded-xl font-semibold text-gray-300 bg-[#171717] hover:bg-[#2f2f2f] transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
               >
                 Back
               </button>
               <button
                 type="submit"
-                className="px-6 py-3 rounded-xl font-semibold bg-white text-black hover:bg-gray-200 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                className="cursor-pointer px-6 py-3 rounded-xl font-semibold bg-[#171717] text-white hover:bg-[#2f2f2f] transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
               >
-                Launch Studio (Simulated)
+                Create
               </button>
             </div>
           </form>
