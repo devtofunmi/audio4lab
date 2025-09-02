@@ -16,11 +16,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const sidebarVariants = {
-    hidden: { x: "-100%" },
-    visible: { x: 0, transition: { duration: 0.3, ease: "easeInOut" } },
-    exit: { x: "-100%", transition: { duration: 0.3, ease: "easeInOut" } },
-  };
+
 
   const backdropVariants = {
     hidden: { opacity: 0 },
@@ -49,7 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             />
             <motion.div
               className="fixed left-0 top-0 h-full w-64 bg-[#171717] flex flex-col"
-              variants={sidebarVariants}
+             
               initial="hidden"
               animate="visible"
               exit="exit"
