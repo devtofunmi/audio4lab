@@ -33,9 +33,8 @@ const NewCreationForm: React.FC<NewCreationFormProps> = ({ onSubmit, onBack }) =
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
-      <button onClick={onBack} className="cursor-pointer text-gray-400 hover:text-white transition-colors flex items-center space-x-2 mb-6">
-        <ArrowLeft size="24" />
-        <span className="text-base font-semibold">Back to Your Creations</span>
+      <button onClick={onBack} className="cursor-pointer text-gray-400 hover:text-white transition-colors flex items-center mb-6">
+        <ArrowLeft size="24" color="#FFFFFF" />
       </button>
       <h2 className="text-3xl font-bold text-white mb-6 flex items-center space-x-3">
         <MusicSquareAdd size="32" color="#FFFFFF" />
