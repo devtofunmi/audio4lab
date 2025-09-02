@@ -36,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobile = false }) => {
     <aside className={`${isMobile ? 'w-full bg-transparent' : 'w-full bg-[#171717] '} p-6 h-full overflow-y-auto flex flex-col`}>
       {!isMobile && (
         <div className="flex items-center space-x-3 mb-8 pb-6 border-b border-gray-600">
-          <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
             <MusicPlay size="20" color="#000" />
           </div>
           <span className="font-bold text-xl text-white">Audio4lab</span>
