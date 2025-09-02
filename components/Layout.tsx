@@ -6,6 +6,7 @@ import {
   CloseSquare,
   MusicPlay,
 } from "iconsax-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -15,6 +16,18 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const sidebarVariants = {
+    hidden: { x: "-100%" },
+    visible: { x: 0, transition: { duration: 0.3, ease: "easeInOut" } },
+    exit: { x: "-100%", transition: { duration: 0.3, ease: "easeInOut" } },
+  };
+
+  const backdropVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.3 } },
+    exit: { opacity: 0, transition: { duration: 0.3 } },
+  };
+
   return (
     <div className="flex bg-[#0d0d0d] min-h-screen">
       {/* Desktop Sidebar */}
@@ -23,34 +36,46 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </div>
 
       {/* Mobile Sidebar Overlay */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="fixed inset-0 bg-black/50"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-          <div className="fixed left-0 top-0 h-full w-64 bg-[#171717] transform transition-transform flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-gray-600 flex-shrink-0">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                  <MusicPlay size="20" color="#000" />
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden">
+            <motion.div
+              className="fixed inset-0 bg-black/50"
+              variants={backdropVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <motion.div
+              className="fixed left-0 top-0 h-full w-64 bg-[#171717] flex flex-col"
+              variants={sidebarVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <div className="flex items-center justify-between p-4 border-b border-gray-600 flex-shrink-0">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                    <MusicPlay size="20" color="#000" />
+                  </div>
+                  <span className="font-bold text-xl text-white">Audio4lab</span>
                 </div>
-                <span className="font-bold text-xl text-white">Audio4lab</span>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-white hover:text-gray-300 p-2 rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center"
+                  aria-label="Close menu"
+                >
+                  <CloseSquare size="24" color="#ffffff" />
+                </button>
               </div>
-              <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-white hover:text-gray-300 p-2 rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center"
-                aria-label="Close menu"
-              >
-                <CloseSquare size="24" color="#ffffff" />
-              </button>
-            </div>
-            <div className="flex-1 overflow-hidden">
-              <Sidebar isMobile={true} />
-            </div>
+              <div className="flex-1 overflow-hidden">
+                <Sidebar isMobile={true} />
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
       {/* Main Content */}
       <div className="flex-1 lg:ml-64">
@@ -67,7 +92,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </button>
             </div>
 
-            {/* Search Bar */}
             {/* Search Bar */}
             <div className="relative w-full max-w-xs">
               <input
