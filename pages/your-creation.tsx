@@ -12,6 +12,7 @@ import {
   VolumeHigh,
   Heart,
   DocumentDownload,
+  VolumeSlash,
 } from "iconsax-react";
 import Layout from "@/components/Layout";
 
@@ -34,6 +35,7 @@ const NewCreationForm: React.FC = () => {
     duration: "02:49",
   });
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false); 
   const [generatedTracks, setGeneratedTracks] = useState<Track[]>([]);
 
   const ourPicksMusic: Track[] = [
@@ -93,6 +95,11 @@ const NewCreationForm: React.FC = () => {
 
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
+  };
+  const toggleMute = () => {
+
+    setIsMuted(!isMuted);
+
   };
 
   const handleGenerate = () => {
@@ -319,8 +326,15 @@ const NewCreationForm: React.FC = () => {
                   <DocumentDownload size="24" color="#FFFFFF" />
                 </button>
 
-                <button className="text-gray-400 hover:text-white transition-colors">
-                  <VolumeHigh size="24" color="#FFFFFF" />
+                <button
+                  onClick={toggleMute}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  {isMuted ? (
+                    <VolumeSlash size="24" color="#FFFFFF" />
+                  ) : (
+                    <VolumeHigh size="24" color="#FFFFFF" />
+                  )}
                 </button>
               </div>
             </div>
@@ -428,8 +442,15 @@ const NewCreationForm: React.FC = () => {
                   <DocumentDownload size="24" color="#FFFFFF" />
                 </button>
 
-                <button className="text-gray-400 hover:text-white transition-colors">
-                  <VolumeHigh size="24" color="#FFFFFF" />
+                <button
+                  onClick={toggleMute}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  {isMuted ? (
+                    <VolumeSlash size="24" color="#FFFFFF" />
+                  ) : (
+                    <VolumeHigh size="24" color="#FFFFFF" />
+                  )}
                 </button>
               </div>
             </div>
