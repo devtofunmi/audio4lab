@@ -350,6 +350,7 @@ const Music: React.FC = () => {
             <ArrowRight2 size="20" />
           </button>
         </div>
+        <div className='max-w-6xl w-full'>
         {filteredTracks.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 lg:gap-6">
             {filteredTracks.map((track) => (
@@ -361,6 +362,7 @@ const Music: React.FC = () => {
             <p>No music found in this category.</p>
           </div>
         )}
+        </div>
       </section>
     </Layout>
   );
