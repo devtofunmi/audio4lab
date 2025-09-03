@@ -38,7 +38,7 @@ const Settings = () => {
 
   return (
     <Layout title="Settings">
-      <div className="max-w-4xl">
+      <div className="max-w-4xl w-full">
         {/* Profile Section */}
         <section className="mb-8">
           <div className="bg-[#171717] rounded-lg border border-gray-600 p-6">
