@@ -347,6 +347,7 @@ const SoundEffects: React.FC = () => {
             <ArrowRight2 size="20" />
           </button>
         </div>
+        <div className='max-w-6xl w-full'>
         {filteredEffects.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 mt-30 gap-4 lg:gap-6">
             {filteredEffects.map((track) => (
@@ -358,6 +359,7 @@ const SoundEffects: React.FC = () => {
             <p>No sound effects found in this category.</p>
           </div>
         )}
+        </div>
       </section>
     </Layout>
   );
