@@ -181,13 +181,13 @@ const NewCreationForm: React.FC = () => {
           <p className="text-gray-400 text-sm truncate">{track.genre}</p>
         </div>
         <div className="flex items-center space-x-4 ml-4">
-          <button className="text-gray-400 hover:text-white transition-colors">
+          <button className="text-gray-400 hover:text-white transition-colors cursor-pointer">
             <PlayCircle size="32" />
           </button>
-          <button className="text-gray-400 hover:text-white transition-colors">
+          <button className="text-gray-400 hover:text-white transition-colors cursor-pointer">
             <Heart size="32" />
           </button>
-          <button className="text-gray-400 hover:text-white transition-colors">
+          <button className="text-gray-400 hover:text-white transition-colors cursor-pointer">
             <DocumentDownload size="32" />
           </button>
         </div>
@@ -213,7 +213,7 @@ const NewCreationForm: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab("sound_effects")}
-              className={`flex items-center space-x-2 py-2 px-6 rounded-full font-medium transition-colors duration-200 ${
+              className={`flex items-center cursor-pointer space-x-2 py-2 px-6 rounded-full font-medium transition-colors duration-200 ${
                 activeTab === "sound_effects"
                   ? "bg-white text-gray-900 shadow-md"
                   : "text-gray-400 hover:text-white"
@@ -308,12 +308,12 @@ const NewCreationForm: React.FC = () => {
               </div>
 
               <div className="flex items-center justify-center space-x-6">
-                 <button className="text-gray-400 hover:text-white transition-colors">
+                 <button className="text-gray-400 cursor-pointer  hover:text-white transition-colors">
                   <Heart size="24" color="#FFFFFF" />
                 </button>
                 <button
                   onClick={handlePlayPause}
-                  className="text-white hover:scale-110 transition-transform"
+                  className="text-white cursor-pointer  hover:scale-110 transition-transform"
                 >
                   {isPlaying ? (
                     <PauseCircle size="64" color="#FFFFFF" variant="Bulk" />
@@ -322,13 +322,13 @@ const NewCreationForm: React.FC = () => {
                   )}
                 </button>
                
-                <button className="text-gray-400 hover:text-white transition-colors">
+                <button className="text-gray-400 cursor-pointer  hover:text-white transition-colors">
                   <DocumentDownload size="24" color="#FFFFFF" />
                 </button>
 
                 <button
                   onClick={toggleMute}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-400 cursor-pointer  hover:text-white transition-colors"
                 >
                   {isMuted ? (
                     <VolumeSlash size="24" color="#FFFFFF" />
@@ -424,12 +424,12 @@ const NewCreationForm: React.FC = () => {
               </div>
 
                <div className="flex items-center justify-center space-x-6">
-                 <button className="text-gray-400 hover:text-white transition-colors">
+                 <button className="text-gray-400 cursor-pointer  hover:text-white transition-colors">
                   <Heart size="24" color="#FFFFFF" />
                 </button>
                 <button
                   onClick={handlePlayPause}
-                  className="text-white hover:scale-110 transition-transform"
+                  className="text-white cursor-pointer  hover:scale-110 transition-transform"
                 >
                   {isPlaying ? (
                     <PauseCircle size="64" color="#FFFFFF" variant="Bulk" />
@@ -438,13 +438,13 @@ const NewCreationForm: React.FC = () => {
                   )}
                 </button>
                
-                <button className="text-gray-400 hover:text-white transition-colors">
+                <button className="text-gray-400 cursor-pointer  hover:text-white transition-colors">
                   <DocumentDownload size="24" color="#FFFFFF" />
                 </button>
 
                 <button
                   onClick={toggleMute}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-400 cursor-pointer  hover:text-white transition-colors"
                 >
                   {isMuted ? (
                     <VolumeSlash size="24" color="#FFFFFF" />
