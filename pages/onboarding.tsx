@@ -9,6 +9,7 @@ import {
   RoleStep,
   PersonalStep,
 } from "@/components/OnboardingSteps";
+import { toast } from "react-toastify";
 
 interface OnboardingData {
   plan: string;
@@ -44,8 +45,12 @@ export default function Onboarding() {
       language: "English",
     },
   });
+  const [userId, setUserId] = useState<string | null>(null);
 
-  const nextStep = () => {
+  const nextStep = (id?: string) => {
+    if (id) {
+      setUserId(id);
+    }
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
@@ -57,9 +62,39 @@ export default function Onboarding() {
     nextStep();
   };
 
-  const handleComplete = () => {
-    localStorage.setItem("onboardingData", JSON.stringify(data));
-    router.push("/dashboard");
+  const handleComplete = async () => {
+    if (!userId) {
+      console.error("User ID not available for updating onboarding data.");
+      toast.error("User ID not available. Please try again.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/user/update-onboarding-data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId,
+          musicInterests: data.musicInterests,
+          userRole: data.userRole,
+          plan: data.plan,
+        }),
+      });
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success(result.message || "Onboarding data saved successfully!");
+        router.push("/dashboard");
+      } else {
+        toast.error(result.message || "Failed to save onboarding data.");
+        console.error("Failed to save onboarding data:", response.statusText);
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred while saving onboarding data.");
+      console.error("Error saving onboarding data:", error);
+    }
   };
 
   const updateData = (field: string, value: unknown) => {
