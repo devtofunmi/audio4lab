@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'; // Added import
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Prepare data for user creation
-    const userData: any = {
+    const userData: Prisma.UserCreateInput = {
       email,
       password: hashedPassword,
     };
