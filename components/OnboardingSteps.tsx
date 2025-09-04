@@ -21,6 +21,8 @@ interface StepProps {
 
 interface PersonalInfo {
   name?: string;
+  email?: string;
+  password?: string;
   dateOfBirth?: {
     day?: string;
     month?: string;
@@ -329,6 +331,32 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
             onChange={(e) => updateField("name", e.target.value)}
             className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
             placeholder="Enter your name"
+          />
+        </div>
+
+        <div>
+          <label className="block text-left text-sm font-medium mb-2 text-white">
+            Your Email
+          </label>
+          <input
+            type="email"
+            value={personalInfo.email || ""}
+            onChange={(e) => updateField("email", e.target.value)}
+            className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div>
+          <label className="block text-left text-sm font-medium mb-2 text-white">
+            Choose a Password
+          </label>
+          <input
+            type="password"
+            value={personalInfo.password || ""}
+            onChange={(e) => updateField("password", e.target.value)}
+            className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
+            placeholder="Enter your password"
           />
         </div>
 
