@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { toast } from 'react-toastify';
 
 export default function Login() {
   const router = useRouter();
@@ -24,11 +25,29 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate login process
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success(result.message || "Login successful!");
+        router.push("/dashboard");
+      } else {
+        toast.error(result.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An unexpected error occurred during login.");
+    } finally {
       setIsLoading(false);
-      router.push("/dashboard");
-    }, 1500);
+    }
   };
 
   const handleGoogleLogin = () => {
