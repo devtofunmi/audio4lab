@@ -19,10 +19,14 @@ interface StepProps {
   onSelect?: (value: string | string[] | PersonalInfo) => void;
 }
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
 interface PersonalInfo {
-  name?: string;
-  email?: string;
-  password?: string;
+  name: string;
+  email: string;
+  password: string;
   dateOfBirth?: {
     day?: string;
     month?: string;
@@ -30,6 +34,20 @@ interface PersonalInfo {
   };
   language?: string;
 }
+
+const personalInfoSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  dateOfBirth: z
+    .object({
+      day: z.string().optional(),
+      month: z.string().optional(),
+      year: z.string().optional(),
+    })
+    .optional(),
+  language: z.string().optional(),
+});
 
 export function PricingStep({
   onNext,
@@ -298,17 +316,27 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
     "December",
   ];
 
-  const personalInfo = (selectedValue as PersonalInfo) || {};
+  const { register, handleSubmit, formState, setValue, watch } = useForm<PersonalInfo>({
+    resolver: zodResolver(personalInfoSchema),
+    defaultValues: selectedValue as PersonalInfo,
+  });
 
-  const updateField = (field: string, value: string) => {
-    onSelect?.({ ...personalInfo, [field]: value });
+  const personalInfo = watch(); // Watch all fields to keep local state updated
+
+  // Update parent state whenever form values change
+  // This is important to ensure data persists across steps if onSelect is used for that purpose
+  // useEffect(() => {
+  //   onSelect?.(personalInfo);
+  // }, [personalInfo, onSelect]);
+
+  const onSubmit = (data: PersonalInfo) => {
+    onSelect?.(data);
+    onNext();
   };
 
-  const updateDateOfBirth = (field: string, value: string) => {
-    onSelect?.({
-      ...personalInfo,
-      dateOfBirth: { ...personalInfo.dateOfBirth, [field]: value },
-    });
+  const updateDateOfBirth = (field: "day" | "month" | "year", value: string) => {
+    const currentDOB = watch("dateOfBirth");
+    setValue("dateOfBirth", { ...currentDOB, [field]: value });
   };
 
   return (
@@ -320,92 +348,105 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
         Let&apos;s personalize your music creation experience
       </p>
 
-      <div className="space-y-6">
-        <div>
-          <label className="block text-left text-sm font-medium mb-2 text-white">
-            What&apos;s your name?
-          </label>
-          <input
-            type="text"
-            value={personalInfo.name || ""}
-            onChange={(e) => updateField("name", e.target.value)}
-            className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
-            placeholder="Enter your name"
-          />
-        </div>
-
-        <div>
-          <label className="block text-left text-sm font-medium mb-2 text-white">
-            Your Email
-          </label>
-          <input
-            type="email"
-            value={personalInfo.email || ""}
-            onChange={(e) => updateField("email", e.target.value)}
-            className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
-            placeholder="Enter your email"
-          />
-        </div>
-
-        <div>
-          <label className="block text-left text-sm font-medium mb-2 text-white">
-            Choose a Password
-          </label>
-          <input
-            type="password"
-            value={personalInfo.password || ""}
-            onChange={(e) => updateField("password", e.target.value)}
-            className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
-            placeholder="Enter your password"
-          />
-        </div>
-
-        <div>
-          <label className="block text-left text-sm font-medium mb-2 text-white">
-            What&apos;s your date of birth? (Optional)
-          </label>
-          <div className="grid grid-cols-2 gap-3 mb-4">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="space-y-6">
+          <div>
+            <label className="block text-left text-sm font-medium mb-2 text-white">
+              What&apos;s your name?
+            </label>
             <input
               type="text"
-              value={personalInfo.dateOfBirth?.day || ""}
-              onChange={(e) => updateDateOfBirth("day", e.target.value)}
-              className="px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
-              placeholder="DD"
-              maxLength={2}
+              {...register("name")}
+              className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
+              placeholder="Enter your name"
             />
-            <input
-              type="text"
-              value={personalInfo.dateOfBirth?.year || ""}
-              onChange={(e) => updateDateOfBirth("year", e.target.value)}
-              className="px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
-              placeholder="YYYY"
-              maxLength={4}
-            />
+            {formState.errors.name && (
+              <p className="text-red-500 text-sm mt-1 text-left">
+                {formState.errors.name.message}
+              </p>
+            )}
           </div>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
-            {months.map((month, index) => (
-              <button
-                key={month}
-                onClick={() => updateDateOfBirth("month", String(index + 1))}
-                className={`px-4 py-3 rounded-lg transition-colors text-sm font-medium ${
-                  String(index + 1) === personalInfo.dateOfBirth?.month
-                    ? "bg-white text-black"
-                    : "bg-[#171717] border-2 border-gray-600 hover:bg-gray-700 text-white"
-                }`}
-              >
-                {month}
-              </button>
-            ))}
+
+          <div>
+            <label className="block text-left text-sm font-medium mb-2 text-white">
+              Your Email
+            </label>
+            <input
+              type="email"
+              {...register("email")}
+              className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
+              placeholder="Enter your email"
+            />
+            {formState.errors.email && (
+              <p className="text-red-500 text-sm mt-1 text-left">
+                {formState.errors.email.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-left text-sm font-medium mb-2 text-white">
+              Choose a Password
+            </label>
+            <input
+              type="password"
+              {...register("password")}
+              className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
+              placeholder="Enter your password"
+            />
+            {formState.errors.password && (
+              <p className="text-red-500 text-sm mt-1 text-left">
+                {formState.errors.password.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-left text-sm font-medium mb-2 text-white">
+              What&apos;s your date of birth? (Optional)
+            </label>
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <input
+                type="text"
+                {...register("dateOfBirth.day")}
+                className="px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
+                placeholder="DD"
+                maxLength={2}
+              />
+              <input
+                type="text"
+                {...register("dateOfBirth.year")}
+                className="px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
+                placeholder="YYYY"
+                maxLength={4}
+              />
+            </div>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
+              {months.map((month, index) => (
+                <button
+                  key={month}
+                  type="button" // Prevent form submission
+                  onClick={() => updateDateOfBirth("month", String(index + 1))}
+                  className={`px-4 py-3 rounded-lg transition-colors text-sm font-medium ${
+                    String(index + 1) === personalInfo.dateOfBirth?.month
+                      ? "bg-white text-black"
+                      : "bg-[#171717] border-2 border-gray-600 hover:bg-gray-700 text-white"
+                  }`}
+                >
+                  {month}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      <button
-        onClick={onNext}
-        className="w-full mt-8 px-8 py-3 bg-white text-black rounded-lg font-semibold cursor-pointer"
-      >
-        Get Started
-      </button>
+        <button
+          type="submit"
+          className="w-full mt-8 px-8 py-3 bg-white text-black rounded-lg font-semibold cursor-pointer"
+        >
+          Get Started
+        </button>
+      </form>
     </div>
   );
 }

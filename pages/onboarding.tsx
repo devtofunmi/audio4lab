@@ -16,6 +16,8 @@ interface OnboardingData {
   userRole: string;
   personalInfo: {
     name: string;
+    email: string;
+    password: string;
     dateOfBirth: {
       day: string;
       month: string;
@@ -36,6 +38,8 @@ export default function Onboarding() {
     userRole: "",
     personalInfo: {
       name: "",
+      email: "",
+      password: "",
       dateOfBirth: { day: "", month: "", year: "" },
       language: "English",
     },
