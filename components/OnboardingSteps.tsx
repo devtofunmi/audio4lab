@@ -12,8 +12,12 @@ import {
   Heart,
 } from "iconsax-react";
 
+import { useState } from "react";
+
+import { toast } from 'react-toastify';
+
 interface StepProps {
-  onNext: () => void;
+  onNext: (userId?: string) => void;
   onSkip?: () => void;
   selectedValue?: string | string[] | PersonalInfo;
   onSelect?: (value: string | string[] | PersonalInfo) => void;
@@ -54,6 +58,22 @@ export function PricingStep({
   onSkip,
   onSelect,
 }: StepProps) {
+  const [loadingSkip, setLoadingSkip] = useState(false);
+  const [loadingNext, setLoadingNext] = useState(false);
+
+  const handleSkip = async () => {
+    setLoadingSkip(true);
+    await onSkip?.();
+    setLoadingSkip(false);
+  };
+
+  const handleNext = async () => {
+    setLoadingNext(true);
+    await onSelect?.("free-trial");
+    await onNext();
+    setLoadingNext(false);
+  };
+
   return (
     <div className="text-center mt-8">
       <h1 className="text-4xl font-bold mb-4 text-white">
@@ -132,19 +152,30 @@ export function PricingStep({
 
       <div className="flex justify-center space-x-4">
         <button
-          onClick={onSkip}
-          className="px-6 py-2 text-gray-400 hover:text-white transition-colors cursor-pointer"
+          onClick={handleSkip}
+          disabled={loadingSkip || loadingNext}
+          className="px-6 py-2 text-gray-400 hover:text-white transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Maybe Later
+          {loadingSkip ? (
+            <div className="flex items-center justify-center">
+              <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            "Maybe Later"
+          )}
         </button>
         <button
-          onClick={() => {
-            onSelect?.("free-trial");
-            onNext();
-          }}
-          className="px-8 py-3 bg-white hover:bg-gray-200 text-black rounded-lg font-semibold transition-all duration-200 cursor-pointer hover:scale-105"
+          onClick={handleNext}
+          disabled={loadingSkip || loadingNext}
+          className="px-8 py-3 bg-white hover:bg-gray-200 text-black rounded-lg font-semibold transition-all duration-200 cursor-pointer hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Start Free Trial
+          {loadingNext ? (
+            <div className="flex items-center justify-center">
+              <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            "Start Free Trial"
+          )}
         </button>
       </div>
     </div>
@@ -224,13 +255,7 @@ export function MusicInterestsStep({
 
       <div className="flex justify-center space-x-4">
         <button
-          onClick={onSkip}
-          className="px-6 py-2 text-gray-400 hover:text-white font-semibold cursor-pointer transition-colors"
-        >
-          Skip
-        </button>
-        <button
-          onClick={onNext}
+          onClick={() => onNext()}
           className="px-8 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 cursor-pointer transition-all duration-200 hover:scale-105"
         >
           Continue
@@ -290,7 +315,7 @@ export function RoleStep({
           Skip
         </button>
         <button
-          onClick={onNext}
+          onClick={() => onNext()}
           className="px-8 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 cursor-pointer transition-all duration-200 hover:scale-105"
         >
           Continue
@@ -323,15 +348,40 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
 
   const personalInfo = watch(); // Watch all fields to keep local state updated
 
-  // Update parent state whenever form values change
-  // This is important to ensure data persists across steps if onSelect is used for that purpose
-  // useEffect(() => {
-  //   onSelect?.(personalInfo);
-  // }, [personalInfo, onSelect]);
+  const [loading, setLoading] = useState(false);
 
-  const onSubmit = (data: PersonalInfo) => {
-    onSelect?.(data);
-    onNext();
+  const onSubmit = async (data: PersonalInfo) => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          dateOfBirth: data.dateOfBirth
+            ? `${data.dateOfBirth.year}-${data.dateOfBirth.month}-${data.dateOfBirth.day}`
+            : undefined,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        onSelect?.(data);
+        toast.success(result.message || "Signup successful!");
+        setTimeout(() => {
+          onNext(result.user.id);
+        }, 1500); // Delay navigation to allow toast to be seen
+      } else {
+        toast.error(result.message || "Signup failed");
+      }
+    } catch (err) {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const updateDateOfBirth = (field: "day" | "month" | "year", value: string) => {
@@ -386,7 +436,7 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
 
           <div>
             <label className="block text-left text-sm font-medium mb-2 text-white">
-              Choose a Password
+              Password
             </label>
             <input
               type="password"
@@ -409,14 +459,14 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
               <input
                 type="text"
                 {...register("dateOfBirth.day")}
-                className="px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
+                className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
                 placeholder="DD"
                 maxLength={2}
               />
               <input
                 type="text"
                 {...register("dateOfBirth.year")}
-                className="px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
+                className="w-full px-4 py-3 bg-[#171717] border-2 border-gray-600 rounded-lg focus:border-white focus:outline-none transition-colors text-white"
                 placeholder="YYYY"
                 maxLength={4}
               />
@@ -440,11 +490,35 @@ export function PersonalStep({ onNext, selectedValue, onSelect }: StepProps) {
           </div>
         </div>
 
+        {formState.errors.name && (
+          <p className="text-red-500 text-sm mt-1 text-left">
+            {formState.errors.name.message}
+          </p>
+        )}
+        {formState.errors.email && (
+          <p className="text-red-500 text-sm mt-1 text-left">
+            {formState.errors.email.message}
+          </p>
+        )}
+        {formState.errors.password && (
+          <p className="text-red-500 text-sm mt-1 text-left">
+            {formState.errors.password.message}
+          </p>
+        )}
+
         <button
           type="submit"
           className="w-full mt-8 px-8 py-3 bg-white text-black rounded-lg font-semibold cursor-pointer"
+          disabled={loading}
         >
-          Get Started
+          {loading ? (
+            <div className="flex items-center justify-center">
+              <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin mr-2"></div>
+              {/* Signing Up... */}
+            </div>
+          ) : (
+            "Get Started"
+          )}
         </button>
       </form>
     </div>
